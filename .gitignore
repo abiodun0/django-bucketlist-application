@@ -1,0 +1,10 @@
+# Python Compiled Files
+__pycache__/
+*.py[cod]
+/htmlcov
+/tmp
+.coverage
+# macbook dstore
+.DS_Store
+/migrations
+bucketlist-test.sqlite
