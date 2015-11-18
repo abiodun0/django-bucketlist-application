@@ -1,1 +1,2 @@
-# Bucketlist API
+# Django Bucketlist
+
