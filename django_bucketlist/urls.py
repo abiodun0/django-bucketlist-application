@@ -15,9 +15,11 @@ Including another URLconf
 """
 from django.conf.urls import include, url
 from django.contrib import admin
-import bucketlist.urls
+import bucketlists.urls
+import apiv1.urls
 
 urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
-    url(r'^bucketlist/', include(bucketlist.urls)),
+    #url(r'^bucketlist/', include(bucketlists.urls)),
+    url(r'^api/v1/', include(apiv1.urls)),
 ]
