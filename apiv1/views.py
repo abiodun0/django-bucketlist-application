@@ -29,3 +29,4 @@ class BucketList(APIView):
         serialized = BucketListSerializer(bucketlists,many=True)
         return Response(serialized.data)
 
+
