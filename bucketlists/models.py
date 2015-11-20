@@ -7,6 +7,6 @@ class BucketList(models.Model):
     description = models.TextField(null=True, blank=True)
     name = models.TextField(null=False, blank=False)
     date_created = models.DateTimeField(auto_now=True)
-
+    
     def __str__(self):
         return self.name
