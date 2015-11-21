@@ -19,7 +19,7 @@ class UserSerializer(serializers.ModelSerializer):
             email=data['email'],
             username=data['username']
         )
-        user.set_password(validated_data['password'])
+        user.set_password(data['password'])
         user.save()
         return user
 
@@ -31,11 +31,7 @@ class BucketListSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = BucketList
-        fields = (
-            'user', 'description', 'name', 'date_created', 'items', 'owner')
-
-
-
+        fields = ('description', 'name', 'date_created', 'date_modified','items', 'owner')
 
 
 
@@ -45,5 +41,5 @@ class ItemSerializer(serializers.ModelSerializer):
     class Meta:
         model = Item
         fields = ('name', 'description', 'done',
-                  'date_created', 'date_modified', 'bucketlist')
+                  'date_added', 'date_modified', 'bucketlist')
 
