@@ -2,6 +2,24 @@ from django import forms
 from django.contrib.auth.models import User
 
 
+class LoginForm(forms.Form):
+    username = forms.CharField(label='Username', max_length=100,
+                               widget=forms.TextInput(attrs={
+                                   'placeholder': 'Enter unique username',
+                                   'autocomplete': 'off',
+                                   'class': 'form-control'
+                               }))
+    password = forms.CharField(label='Password', max_length=100,
+                               widget=forms.PasswordInput(attrs={
+                                   'placeholder': 'Enter secret password',
+                                   'class': 'form-control'
+                               }))
+
+    remember_me = forms.BooleanField(
+        label='Remember Me', required=False)
+
+
+
 class RegisterForm(forms.Form):
     first_name = forms.CharField(max_length=100,
                                  widget=forms.TextInput(attrs={

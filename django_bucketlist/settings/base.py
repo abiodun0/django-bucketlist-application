@@ -13,7 +13,9 @@ https://docs.djangoproject.com/en/1.8/ref/settings/
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import os
 
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+BASE_DIR = os.path.dirname(
+    os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+print BASE_DIR
 
 
 # Quick-start development settings - unsuitable for production
@@ -49,7 +51,7 @@ INSTALLED_APPS = (
     'bucketlists',
     'userprofile',
     'items',
-    
+
 )
 
 MIDDLEWARE_CLASSES = (
@@ -95,7 +97,6 @@ REST_FRAMEWORK = {
         'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
     ],
     'DEFAULT_AUTHENTICATION_CLASSES': (
-        #'rest_framework.authentication.BasicAuthentication',
         'rest_framework.authentication.TokenAuthentication',
     )
 }

@@ -28,3 +28,16 @@ body{
   border: solid #3b6e22  1px;
   text-decoration: none;
 }
+footer{
+    position:fixed;
+    bottom:0;
+    left:50%;
+}
+
+form input{
+    margin-bottom:10px;
+}
+
+form label{
+    color:#fff;
+}
