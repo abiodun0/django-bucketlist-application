@@ -12,6 +12,7 @@ build/
 develop-eggs/
 dist/
 downloads/
+bower_components/
 eggs/
 .eggs/
 lib/
@@ -19,6 +20,7 @@ lib64/
 parts/
 sdist/
 var/
+staticfiles/
 *.egg-info/
 .installed.cfg
 *.egg

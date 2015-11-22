@@ -17,8 +17,10 @@ from django.conf.urls import include, url
 from django.contrib import admin
 import bucketlists.urls
 import apiv1.urls
+import userprofile.urls
 
 urlpatterns = [
+    url(r'^', include(userprofile.urls)),
     url(r'^admin/', include(admin.site.urls)),
     #url(r'^bucketlist/', include(bucketlists.urls)),
     url(r'^api/v1/', include(apiv1.urls)),

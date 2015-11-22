@@ -1,6 +1,7 @@
 from django.http import Http404
 from django.shortcuts import get_object_or_404
 from django.contrib.auth.models import User
+
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.renderers import JSONRenderer
@@ -8,9 +9,12 @@ from rest_framework.parsers import JSONParser
 from rest_framework.generics import GenericAPIView
 from rest_framework.permissions import IsAuthenticated, IsAuthenticatedOrReadOnly
 from rest_framework import status
+
 from bucketlists.models import BucketList
 from items.models import Item
 from apiv1.serializers import UserSerializer, BucketListSerializer, ItemSerializer
+
+
 
 
 class ProfileView(APIView):
@@ -46,6 +50,7 @@ class BucketLists(APIView):
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
+
 class BucketListView(APIView):
     permission_classes = (IsAuthenticated,)
 
@@ -56,11 +61,10 @@ class BucketListView(APIView):
         serialized = ItemSerializer(items, many=True)
         return Response(serialized.data)
 
-
     def put(self, request, format=None, **kwargs):
         bucketlist_id = kwargs['id']
         bucketlist = get_object_or_404(BucketList, id=bucketlist_id)
-        serializer = BucketListSerializer(bucketlist,data=request.data)
+        serializer = BucketListSerializer(bucketlist, data=request.data)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
@@ -77,7 +81,7 @@ class BucketListItemsView(APIView):
 
     def post(self, request, format=None, **kwargs):
         bucketlist_id = kwargs['id']
-        bucketlist = BucketList.objects.get(id=bucketlist_id)
+        bucketlist = get_object_or_404(BucketList, id=bucketlist_id)
 
         serializer = ItemSerializer(data=request.data)
 
@@ -86,11 +90,12 @@ class BucketListItemsView(APIView):
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
+
 class BucketListItemView(APIView):
 
     def put(self, request, format=None, **kwargs):
         item_id = kwargs['item_id']
-        item = Item.objects.get(id=item_id)
+        item = get_object_or_404(Item, id=item_id)
 
         serializer = ItemSerializer(item, data=request.data)
 
@@ -104,5 +109,3 @@ class BucketListItemView(APIView):
         item = get_object_or_404(Item, id=item_id)
         item.delete()
         return Response("Successfully Deleted")
-
-
