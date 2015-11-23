@@ -1,0 +1,100 @@
+{% extends "base/layout.html" %} {% block content %} {% include 'partials/navbar.html' %}
+<div class="container">
+    <div class="row text-center">
+        <div class="col-sm-4">
+            <form class "form-control">
+                <div class="input-group">
+                    <input type="text" class="form-control" placeholder="Search for...">
+                    <span class="input-group-btn">
+        <button class="btn btn-default bucket-link" type="button">Go!</button>
+      </span>
+                </div>
+            </form>
+            <!-- /input-group -->
+        </div>
+        <!-- /.col-lg-6 -->
+        <div class="col-sm-4 pull-right">
+            <a class="btn btn-block btn-default bucket-link" data-toggle="modal" data-target="#bucketlistModal"> Add New Bucket List <span class="glyphicon glyphicon-plus"></span></a>
+        </div>
+    </div>
+</div>
+<div class="container">
+    <div class="row">
+        {% for bucketlist in request.user.bucketlists.all %}
+        <div class="col-sm-4 bucket-item">
+            <div class="panel panel-primary">
+                <!-- Default panel contents -->
+                <div class="panel-heading">{{bucketlist.name}} <a href="#" class="pull-right"><span class="glyphicon glyphicon-pencil"></span></a>&nbsp; &nbsp;&nbsp; &nbsp;<a href="#" class="pull-right"><span class="glyphicon  glyphicon-trash"></span></a></div>
+                <div class="panel-body">
+                    <p>{{bucketlist.description}}</p>
+                </div>
+                <!-- List group -->
+                <ul class="list-group">
+                    {% for item in bucketlist.items.all %}
+                    <div class="list-group">
+                        
+                            <h4 class="list-group-item-heading">{{item.name}}</h4>
+                            <p class="list-group-item-text">{{item.description}}</p>
+                    </div>
+                    {% empty %}
+                    <li class="list-group-item">No item on this list</li>
+                    {% endfor %}
+                </ul>
+            </div>
+            <a href="#" class="btn btn-primary btn-block"> Add More Items to this bucket list <span class="glyphicon glyphicon-plus"></span></a>
+            <form class="form-horizontal" action="{% url 'bucketlists' %}" method="post" style="display:none">
+                {% csrf_token %}
+                <div class="form-group">
+                    <div class="col-sm-12">
+                        <input type="text" class="form-control" name="name" value="{{bucketlist.name}}">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-12">
+                        <textarea class="form-control" rows="2">{{bucketlist.name}}</textarea>
+                    </div>
+                </div>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </form>
+        </div>
+        {% empty %}
+        <p class="text-center text-danger"> You Currently have no bucketlist add one nnow</p>
+        {% endfor %}
+    </div>
+</div>
+<hr>
+<div class="modal fade" role="dialog" id="bucketlistModal" aria-labelledby="gridSystemModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="gridSystemModalLabel">New Bucket List</h4>
+            </div>
+            <form class="form-horizontal" action="{% url 'bucketlists' %}" method="post">
+                <div class="modal-body">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <div class="col-sm-10">
+                            {{new_bucketlist.name}}
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-10">
+                            {{new_bucketlist.description}}
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </div>
+            </form>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->
+<!-- /container -->
+{% endblock content %}

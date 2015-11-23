@@ -7,6 +7,7 @@ from django.contrib import messages
 from django.template import RequestContext, loader
 
 from userprofile.forms import RegisterForm, LoginForm
+from bucketlists.forms import BucketListForm
 
 # Create your views here.
 
@@ -43,7 +44,7 @@ class IndexBaseView(TemplateView):
                     messages.add_message(
                         request, messages.SUCCESS, 'Logged in Successfully!')
                     return redirect(
-                        '/home',
+                        '/dashboard',
                         context_instance=RequestContext(request)
                     )
             else:
@@ -59,7 +60,7 @@ class IndexBaseView(TemplateView):
             return render(request, self.template_name, context)
 
 
-class SignUpView(TemplateView):
+class SignUpView(IndexBaseView):
     template_name = 'signup.html'
     def get_context_data(self, **kwargs):
         context = super(SignUpView, self).get_context_data(**kwargs)
@@ -85,3 +86,11 @@ class SignUpView(TemplateView):
             context['form_errors'] = form.errors
             context['registerform'] = form
             return render(request, self.template_name, context)
+
+
+class DashboardView(TemplateView):
+    template_name = 'dashboard.html'
+    def get_context_data(self, **kwargs):
+        context = super(DashboardView, self).get_context_data(**kwargs)
+        context['new_bucketlist'] = BucketListForm(auto_id=False)
+        return context
