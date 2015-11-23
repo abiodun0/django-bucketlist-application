@@ -1,5 +1,7 @@
 {% extends "base/layout.html" %} {% block content %} {% include 'partials/navbar.html' %}
 <div class="container">
+
+
     <div class="row text-center">
         <div class="col-sm-4">
             <form class "form-control">
@@ -14,7 +16,7 @@
         </div>
         <!-- /.col-lg-6 -->
         <div class="col-sm-4 pull-right">
-            <a class="btn btn-block btn-default bucket-link" data-toggle="modal" data-target="#bucketlistModal"> Add New Bucket List <span class="glyphicon glyphicon-plus"></span></a>
+            <a class="btn btn-block btn-default new-bucket-link" data-toggle="modal" data-target="#bucketlistModal"> Add New Bucket List Collections<span class="glyphicon glyphicon-plus"></span></a>
         </div>
     </div>
 </div>
@@ -22,66 +24,92 @@
     <div class="row">
         {% for bucketlist in bucketlists %}
         <div class="col-sm-4 bucket-item">
-            <div class="panel panel-primary">
+            <div class="panel panel-{{bucketlist.color}}">
                 <!-- Default panel contents -->
-                <div class="panel-heading">{{bucketlist.name}} <a href="#" class="pull-right"><span class="glyphicon  glyphicon-trash"></span></a><a href="#" class="pull-right"><span class="glyphicon glyphicon-pencil"></span></a></div>
-                <div class="panel-body">
-                    <p>{{bucketlist.description}}</p>
+                <div class="panel-heading">{{ bucketlist.name }} <div class="btn-group pull-right" role="group" aria-label="...">
+  <a href="#" class="edit-bucketitem"><span class="glyphicon glyphicon-pencil" style="color:{% if bucketlist.color == 'primary' %}white {% else %}black {% endif %}"></span></a>
+  <a href="#" data-toggle="popover" data-placement="top" title="Are you sure you want to delete this collection" data-content="<form method='post' action='{% url 'delete_bucketlist' id=bucketlist.id %}' class='form-group'>{% csrf_token %} <button type='submit' class='btn-danger btn'>Delete </button><button type='reset' class='btn-default btn pull-right'>Canceal </button></form>" class="delete-bucketitem"><span class="glyphicon glyphicon-trash"style="color:{% if bucketlist.color == 'primary' %}white {% else %}black {% endif %}"></span></a></div> </div>
+                <div class="bucket-item-content">
+                    <div class="panel-body">
+                        <p><em>{{bucketlist.description}}</em></p>
+                        <ul class="list-group">
+                            {% for item in bucketlist.items.all %}
+                                    <li class="list-group-item">{{item.name}}
+                                    <p><small><em>{{item.description}}</em></small></p></li>
+                            {% empty %}
+                            <li class="list-group-item">No item on this list</li>
+                            {% endfor %}
+                        </ul>
+                    </div>
                 </div>
+                <form class="form-horizontal edit-form" action="{% url 'edit_bucketlist' id=bucketlist.id %}" method="post">
+                <h4> Edit this Bucket Item</h4>
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <div class="col-sm-12">
+                            <input type="text" class="form-control" name="name" value="{{bucketlist.name}}">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-12">
+                            <textarea class="form-control" rows="2" name="description">{{bucketlist.description}}</textarea>
+                        </div>
+                    </div>
+                    <h5> Color Scheme</h5>
+                    <div class="form-group">
+                        <div class="col-sm-12">
+                            <div class="radio-inline">
+                                <label>
+                                    <input class="radio-inline" maxlength="100" name="color" type="radio" value="success"> green</label>
+                            </div>
+                            <div class="radio-inline">
+                                <label>
+                                    <input class="radio-inline" maxlength="100" name="color" type="radio" value="default"> gray</label>
+                            </div>
+                            <div class="radio-inline">
+                                <label>
+                                    <input class="radio-inline" maxlength="100" name="color" type="radio" value="primary"> blue</label>
+                            </div>
+                            <div class="radio-inline">
+                                <label>
+                                    <input class="radio-inline" maxlength="100" name="color" type="radio" value="warning"> yellow</label>
+                            </div>
+                            <div class="radio-inline">
+                                <label>
+                                    <input class="radio-inline" maxlength="100" name="color" type="radio" value="danger"> red</label>
+                            </div>
+                        </div>
+                    </div>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </form>
                 <!-- List group -->
-                <ul class="list-group">
-                    {% for item in bucketlist.items.all %}
-                    <div class="list-group">
-                        
-                            <h4 class="list-group-item-heading">{{item.name}}</h4>
-                            <p class="list-group-item-text">{{item.description}}</p>
-                    </div>
-                    {% empty %}
-                    <li class="list-group-item">No item on this list</li>
-                    {% endfor %}
-                </ul>
+                <a class="btn btn-{{bucketlist.color}} pull-right btn-sm bucket-link" data-toggle="modal" data-target="#ItemModal" data-placement="top" title="Add more items to {{bucketlist.name}}" data-action="{% url 'add_item' id=bucketlist.id %}"><span class="glyphicon glyphicon-plus"></span></a>
             </div>
-            <a href="#" class="btn btn-primary btn-block bucket-link"> Add More Items to this bucket list <span class="glyphicon glyphicon-plus"></span></a>
-            <form class="form-horizontal" action="{% url 'bucketlists' %}" method="post" style="display:none">
-            <input type="hidden" name="_method" value="PUT">
-                {% csrf_token %}
-                <div class="form-group">
-                    <div class="col-sm-12">
-                        <input type="text" class="form-control" name="name" value="{{bucketlist.name}}">
-                    </div>
-                </div>
-                <div class="form-group">
-                    <div class="col-sm-12">
-                        <textarea class="form-control" rows="2">{{bucketlist.name}}</textarea>
-                    </div>
-                </div>
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                <button type="submit" class="btn btn-primary">Submit</button>
-            </form>
         </div>
         {% empty %}
         <p class="text-center text-danger"> You Currently have no bucketlist add one nnow</p>
         {% endfor %}
     </div>
-
+    {% if bucketlists|length > 0 %}
     <nav>
-  <ul class="pager">
-    <li class="previous {% if not bucketlists.has_previous %} disabled {% endif %}">
-      <a href="{% if bucketlists.has_previous %} ?page={{ bucketlists.previous_page_number }}{% else %} #{% endif %}" aria-label="Previous">
-        <span aria-hidden="true">&laquo;</span>
-      </a>
-    </li>
-
-    {% for page in bucketlists.paginator.page_range %}
-    <li><a href="?page={{page}}">{{page}}</a></li>
-    {% endfor %}
-    <li class="next {% if not bucketlists.has_next %} disabled {% endif %}">
-      <a href="{% if bucketlists.has_next %} ?page={{ bucketlists.next_page_number }}{% else %} #{% endif %}" aria-label="Next">
-        <span aria-hidden="true">&raquo;</span>
-      </a>
-    </li>
-  </ul>
-</nav>
+        <ul class="pager">
+            <li class="previous {% if not bucketlists.has_previous %} disabled {% endif %}">
+                <a href="{% if bucketlists.has_previous %} ?page={{ bucketlists.previous_page_number }}{% else %} #{% endif %}" aria-label="Previous">
+                    <span aria-hidden="true">&laquo;</span>
+                </a>
+            </li>
+            {% for page in bucketlists.paginator.page_range %}
+            <li><a href="{% if bucketlists.number != page %} ?page={{page}} {% else %} # {% endif %}">{{page}}</a></li>
+            {% endfor %}
+            <li class="next {% if not bucketlists.has_next %} disabled {% endif %}">
+                <a href="{% if bucketlists.has_next %} ?page={{ bucketlists.next_page_number }}{% else %} #{% endif %}" aria-label="Next">
+                    <span aria-hidden="true">&raquo;</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+    {% endif %}
 </div>
 <hr>
 <div class="modal fade" role="dialog" id="bucketlistModal" aria-labelledby="gridSystemModalLabel">
@@ -102,6 +130,48 @@
                     <div class="form-group">
                         <div class="col-sm-10">
                             {{new_bucketlist.description}}
+                        </div>
+                    </div>
+                    <div class="form-group">
+                     <div class="col-sm-10">
+
+                        {% for radio in new_bucketlist.color %}
+                        <div class="radio-inline">
+                            {{ radio }}
+                        </div>
+                        {% endfor %}
+                    </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </div>
+            </form>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+
+<div class="modal fade" role="dialog" id="itemModal" aria-labelledby="gridSystemModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="gridSystemModalLabel">New Bucket List</h4>
+            </div>
+            <form class="form-horizontal" action="{% url 'bucketlists' %}" method="post">
+                <div class="modal-body">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <div class="col-sm-10">
+                            {{new_item.name}}
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-10">
+                            {{new_item.description}}
                         </div>
                     </div>
                 </div>

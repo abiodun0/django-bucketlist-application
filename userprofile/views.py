@@ -9,6 +9,7 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 from userprofile.forms import RegisterForm, LoginForm
 from bucketlists.forms import BucketListForm
+from items.forms import ItemForm
 
 # Create your views here.
 
@@ -22,9 +23,9 @@ class LoginRequiredMixin(object):
             request, *args, **kwargs)
 
 
-
 class IndexBaseView(TemplateView):
     template_name = 'index.html'
+
     def get_context_data(self, **kwargs):
         context = super(IndexBaseView, self).get_context_data(**kwargs)
         context['loginform'] = LoginForm(auto_id=False)
@@ -63,6 +64,7 @@ class IndexBaseView(TemplateView):
 
 class SignUpView(IndexBaseView):
     template_name = 'signup.html'
+
     def get_context_data(self, **kwargs):
         context = super(SignUpView, self).get_context_data(**kwargs)
         context['registerform'] = RegisterForm(auto_id=False)
@@ -75,9 +77,8 @@ class SignUpView(IndexBaseView):
             new_user = authenticate(username=request.POST['username'],
                                     password=request.POST['password'])
             login(request, new_user)
-
             return redirect(
-                '/user/' + self.request.user.username + '/profile/',
+                '/dashboard',
                 context_instance=RequestContext(request)
             )
         else:
@@ -91,6 +92,7 @@ class SignUpView(IndexBaseView):
 
 class DashboardView(TemplateView):
     template_name = 'dashboard.html'
+
     def get_context_data(self, **kwargs):
         context = super(DashboardView, self).get_context_data(**kwargs)
         context['new_bucketlist'] = BucketListForm(auto_id=False)
@@ -98,19 +100,18 @@ class DashboardView(TemplateView):
 
     def get(self, request, **kwargs):
         page = request.GET.get('page')
-        paginator = Paginator(request.user.bucketlists.all(),6)
+        paginator = Paginator(request.user.bucketlists.all().reverse(), 6)
         try:
             bucketlists = paginator.page(page)
         except PageNotAnInteger:
             bucketlists = paginator.page(1)
         except EmptyPage:
             bucketlists = paginator.page(paginator.num_pages)
-        
+
         context = {
-        'bucketlists': bucketlists,
-        'new_bucketlist':BucketListForm(auto_id=False)
+            'bucketlists': bucketlists,
+            'new_item': ItemForm(auto_id=False),
+            'new_bucketlist': BucketListForm(auto_id=False)
         }
 
         return render(request, self.template_name, context)
-
-

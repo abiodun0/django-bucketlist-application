@@ -1,7 +1,7 @@
 body{
     padding:0;
     margin-top:60px;
-    overflow:hidden;
+    overflow-x:hidden;
 }
 .jumbotron p{
     font-size:16px;
@@ -28,11 +28,7 @@ body{
   border: solid #3b6e22  1px;
   text-decoration: none;
 }
-footer{
-    position:fixed;
-    bottom:0;
-    left:50%;
-}
+
 
 form input{
     margin-bottom:10px;
@@ -41,16 +37,41 @@ form input{
 form label{
     color:#fff;
 }
-.bucket-item,.bucket-link{
+.bucket-item{
+    padding:20px;
+    height:450px;
+}
+.bucket-item .edit-form{
+    display:none;
+    padding:20px;
+    position:relative;
+    z-index:10;
+    background:#fff;
+    border:solid 1px black;
+}
+.bucket-link{
     margin-bottom:20px;
 }
 .bucket-item .panel-heading a{
     margin-left:5px;
     color:#fff;
+    font-weight:500;
     visibility:hidden;
+}
+.bucket-item .panel-body p em{
+    color:gray;
 }
 .bucket-item .panel-heading:hover a{
     visibility: visible;
     transition: all 0.3 ease-out;
 
+}
+.errorlist li{
+    color: red;
+}
+.radio-inline label{
+    color:#000;
+}
+.radio-inline{
+    padding:10px;
 }

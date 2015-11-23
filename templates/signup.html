@@ -10,24 +10,25 @@
                 <form action="{% url 'signup' %}" method="post" accept-charset="utf-8" class="form" role="form">
                 {% csrf_token %}
                     <h2>Sign Up</h2>
-                  {% if form_errors %}
-                    {% for error in form_errors %}
-                        <p class="text-danger" role="alert">
-                            {{ error }}
-                        </p>
-                    {% endfor %}    
-                {% endif %}
                     <hr>
                     
                     <div class="row">
                         <div class="col-xs-6 col-md-6">
-                           {{ registerform.first_name }}</div>
+                        {{ registerform.first_name.errors }}
+                           {{ registerform.first_name }}
+                           </div>
                         <div class="col-xs-6 col-md-6">
-                           {{ registerform.last_name }}</div>
+                        {{ registerform.last_name.errors }}
+                           {{ registerform.last_name }}
+                          </div>
                     </div>
+                    {{ registerform.username.errors }}
                     {{ registerform.username }}
+                    {{ registerform.email.errors }}
                     {{ registerform.email }}
+                    {{ registerform.password.errors }}
                     {{ registerform.password }}
+                    {{ registerform.password_conf.errors }}
                     {{ registerform.password_conf }}
 
                     <button class="btn btn-lg btn-success signup-btn" type="submit">
