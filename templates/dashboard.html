@@ -20,11 +20,11 @@
 </div>
 <div class="container">
     <div class="row">
-        {% for bucketlist in request.user.bucketlists.all %}
+        {% for bucketlist in bucketlists %}
         <div class="col-sm-4 bucket-item">
             <div class="panel panel-primary">
                 <!-- Default panel contents -->
-                <div class="panel-heading">{{bucketlist.name}} <a href="#" class="pull-right"><span class="glyphicon glyphicon-pencil"></span></a>&nbsp; &nbsp;&nbsp; &nbsp;<a href="#" class="pull-right"><span class="glyphicon  glyphicon-trash"></span></a></div>
+                <div class="panel-heading">{{bucketlist.name}} <a href="#" class="pull-right"><span class="glyphicon  glyphicon-trash"></span></a><a href="#" class="pull-right"><span class="glyphicon glyphicon-pencil"></span></a></div>
                 <div class="panel-body">
                     <p>{{bucketlist.description}}</p>
                 </div>
@@ -41,8 +41,9 @@
                     {% endfor %}
                 </ul>
             </div>
-            <a href="#" class="btn btn-primary btn-block"> Add More Items to this bucket list <span class="glyphicon glyphicon-plus"></span></a>
+            <a href="#" class="btn btn-primary btn-block bucket-link"> Add More Items to this bucket list <span class="glyphicon glyphicon-plus"></span></a>
             <form class="form-horizontal" action="{% url 'bucketlists' %}" method="post" style="display:none">
+            <input type="hidden" name="_method" value="PUT">
                 {% csrf_token %}
                 <div class="form-group">
                     <div class="col-sm-12">
@@ -62,6 +63,25 @@
         <p class="text-center text-danger"> You Currently have no bucketlist add one nnow</p>
         {% endfor %}
     </div>
+
+    <nav>
+  <ul class="pager">
+    <li class="previous {% if not bucketlists.has_previous %} disabled {% endif %}">
+      <a href="{% if bucketlists.has_previous %} ?page={{ bucketlists.previous_page_number }}{% else %} #{% endif %}" aria-label="Previous">
+        <span aria-hidden="true">&laquo;</span>
+      </a>
+    </li>
+
+    {% for page in bucketlists.paginator.page_range %}
+    <li><a href="?page={{page}}">{{page}}</a></li>
+    {% endfor %}
+    <li class="next {% if not bucketlists.has_next %} disabled {% endif %}">
+      <a href="{% if bucketlists.has_next %} ?page={{ bucketlists.next_page_number }}{% else %} #{% endif %}" aria-label="Next">
+        <span aria-hidden="true">&raquo;</span>
+      </a>
+    </li>
+  </ul>
+</nav>
 </div>
 <hr>
 <div class="modal fade" role="dialog" id="bucketlistModal" aria-labelledby="gridSystemModalLabel">

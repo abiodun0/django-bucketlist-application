@@ -5,6 +5,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login
 from django.contrib import messages
 from django.template import RequestContext, loader
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 from userprofile.forms import RegisterForm, LoginForm
 from bucketlists.forms import BucketListForm
@@ -94,3 +95,22 @@ class DashboardView(TemplateView):
         context = super(DashboardView, self).get_context_data(**kwargs)
         context['new_bucketlist'] = BucketListForm(auto_id=False)
         return context
+
+    def get(self, request, **kwargs):
+        page = request.GET.get('page')
+        paginator = Paginator(request.user.bucketlists.all(),6)
+        try:
+            bucketlists = paginator.page(page)
+        except PageNotAnInteger:
+            bucketlists = paginator.page(1)
+        except EmptyPage:
+            bucketlists = paginator.page(paginator.num_pages)
+        
+        context = {
+        'bucketlists': bucketlists,
+        'new_bucketlist':BucketListForm(auto_id=False)
+        }
+
+        return render(request, self.template_name, context)
+
+

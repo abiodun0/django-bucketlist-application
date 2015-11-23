@@ -44,7 +44,8 @@ form label{
 .bucket-item,.bucket-link{
     margin-bottom:20px;
 }
-.bucket-item a{
+.bucket-item .panel-heading a{
+    margin-left:5px;
     color:#fff;
     visibility:hidden;
 }
