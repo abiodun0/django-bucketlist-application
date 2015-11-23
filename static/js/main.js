@@ -12,7 +12,7 @@ $(document).ready(function() {
         e.preventDefault();
         $("#itemModal").modal("show");
         var url = $(this).data('action')
-        $("#itemModal").find('.edit-form').attr('action',url);
+        $("#itemModal").find('form').attr('action',url);
     });
     $('.delete-bucketitem').click(function(e){
         e.preventDefault();

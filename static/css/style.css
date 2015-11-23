@@ -41,6 +41,20 @@ form label{
     padding:20px;
     height:450px;
 }
+.item-done{
+    position: absolute;
+    bottom: 0;
+    right: 0;
+}
+ul.list-group button{
+    visibility:hidden;
+}
+ul.list-group li{
+    position:relative;
+}
+ul.list-group li:hover button{
+    visibility:visible;
+}
 .bucket-item .edit-form{
     display:none;
     padding:20px;

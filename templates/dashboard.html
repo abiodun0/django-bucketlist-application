@@ -34,8 +34,25 @@
                         <p><em>{{bucketlist.description}}</em></p>
                         <ul class="list-group">
                             {% for item in bucketlist.items.all %}
-                                    <li class="list-group-item">{{item.name}}
-                                    <p><small><em>{{item.description}}</em></small></p></li>
+                            {% if item.done %}
+                                    <li class="list-group-item"><s>{{item.name}}</s>
+                                    <p><small><em><s>{{item.description}}</s></em></small></p>
+                                    <form method="post" action="{% url 'item_done' id=item.id %}">
+                                        {% csrf_token %}
+                                    <button type="submit" class="btn btn-sm btn-warning item-done"> Not Done Yet ? </button>
+                                    </form>
+                                    </li>
+                                {% else %}
+                                <li class="list-group-item">{{item.name}}
+                                    <p><small><em>{{item.description}}</em></small></p>
+                                    <form method="post" action="{% url 'item_done' id=item.id %}">
+                                        {% csrf_token %}
+                                    <button type="submit" class="btn btn-sm btn-warning item-done"> Done? </button>
+                                    </form>
+                                    </li>
+                                {% endif %}
+
+
                             {% empty %}
                             <li class="list-group-item">No item on this list</li>
                             {% endfor %}
