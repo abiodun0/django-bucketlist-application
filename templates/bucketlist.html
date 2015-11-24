@@ -7,7 +7,7 @@
         {% for item in items %}
         <div class="col-sm-6 bucket-item">
             <div class="panel panel-{{bucketlist.color}}">
-                <div class="panel-heading">{% if item.done %} {{item.name}} {% else %}
+                <div class="panel-heading">{% if not item.done %} {{item.name}} {% else %}
                     <del> {{item.name}}</del> {% endif %}
                     <div class="btn-group pull-right" role="group" aria-label="...">
                         <a href="#" class="edit-bucketitem"><span class="glyphicon glyphicon-pencil" style="color:{% if bucketlist.color == 'primary' %}white {% else %}black {% endif %}"></span></a>
@@ -15,12 +15,13 @@
                 </div>
                 <div class="bucket-item-content">
                 <div class="panel-body">
-                    {% if item.done %} {{item.description}} {% else %}
+                    {% if not item.done %} {{item.description}} {% else %}
                     <del> {{item.description}}</del> {% endif %}
                 </div>
                 </div>
                 <form class="form-horizontal edit-form" action="{% url 'item_edit' id=item.id %}" method="post">
-                    <h4> Edit this Bucket Item</h4> {% csrf_token %}
+                    <h4> Edit this Bucket Item</h4> 
+                    {% csrf_token %}
                     <div class="form-group">
                         <div class="col-sm-12">
                             <input type="text" class="form-control" name="name" value="{{item.name}}">
@@ -36,11 +37,11 @@
                         <div class="col-sm-12">
                             <div class="radio-inline">
                                 <label>
-                                    <input class="radio-inline" maxlength="100" name="done" type="radio" value=True> Yes</label>
+                                    <input class="radio-inline" maxlength="100" name="done" type="radio" value=True checked="{{item.done}}"> Yes</label>
                             </div>
                             <div class="radio-inline">
                                 <label>
-                                    <input class="radio-inline" maxlength="100" name="done" type="radio" value=False> No</label>
+                                    <input class="radio-inline" maxlength="100" name="done" type="radio" value=False checked="{{item.done}}"> No</label>
                             </div>
                         </div>
                     </div>

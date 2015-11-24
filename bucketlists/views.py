@@ -23,7 +23,7 @@ class BucketListView(DashboardView):
         bucketlist.owner = request.user
         bucketlist.save()
         return redirect(
-            '/dashboard',
+            request.META.get('HTTP_REFERER'),
             context_instance=RequestContext(request)
         )
     pass
@@ -66,7 +66,7 @@ class BucketListEditView(TemplateView):
 
         bucketlist.save()
         return redirect(
-            '/dashboard',
+           request.META.get('HTTP_REFERER'),
             context_instance=RequestContext(request)
         )
     pass
@@ -81,7 +81,7 @@ class BucketListAddItemView(TemplateView):
         item.done = False
         item.save()
         return redirect(
-            '/dashboard',
+            request.META.get('HTTP_REFERER'),
             context_instance=RequestContext(request)
         )
 
@@ -91,7 +91,7 @@ class BucketListDeleteView(TemplateView):
         bucketlist = BucketList.objects.filter(id=bucketlist_id).first()
         bucketlist.delete()
         return redirect(
-            '/dashboard',
+            request.META.get('HTTP_REFERER'),
             context_instance=RequestContext(request)
         )
 

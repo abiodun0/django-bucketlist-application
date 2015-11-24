@@ -4,7 +4,20 @@ from django.template import RequestContext, loader
 from .models import Item
 
 # Create your views here.
-class ItemDoneView(TemplateView):
+
+        
+class ItemDeleteView(View):
+
+    def post(self, request, **kwargs):
+        item_id = kwargs['id']
+        item = Item.objects.filter(id=item_id).first()
+        item.delete()
+        return redirect(
+            request.META.get('HTTP_REFERER'),
+            context_instance=RequestContext(request)
+            )
+
+class ItemDoneView(View):
     def post(self, request, **kwargs):
         item_id = kwargs['id']
         item = Item.objects.filter(id=item_id).first()
@@ -14,31 +27,24 @@ class ItemDoneView(TemplateView):
             item.done = True
         item.save()
         return redirect(
-            '/dashboard',
-            context_instance=RequestContext(request)
-            )
-        
-class ItemDeleteView(TemplateView):
-
-    def post(self, request, **kwargs):
-        item_id = kwargs['id']
-        item = Item.objects.filter(id=item_id).first()
-        item.delete()
-        return redirect(
-            '/dashboard',
+            request.META.get('HTTP_REFERER'),
             context_instance=RequestContext(request)
             )
 
-class ItemEditView(TemplateView):
+
+class ItemEditView(View):
 
     def post(self, request, **kwargs):
+        print kwargs
         item_id = kwargs['id']
+        print item_id
         item = Item.objects.filter(id=item_id).first()
+        print item
         item.name = request.POST['name']
         item.description = request.POST['description']
         item.done = request.POST['done']
         item.save()
         return redirect(
-            '/dashboard',
+            request.META.get('HTTP_REFERER'),
             context_instance=RequestContext(request)
             )
