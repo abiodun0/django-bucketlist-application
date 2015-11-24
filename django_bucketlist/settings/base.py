@@ -123,7 +123,7 @@ BOWER_INSTALLED_APPS = (
     'bootstrap',
 )
 
-BOWER_COMPONENTS_ROOT = os.path.join(BASE_DIR, 'bower_components')
+BOWER_COMPONENTS_ROOT = os.path.join(BASE_DIR, 'components')
 
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'static'),
