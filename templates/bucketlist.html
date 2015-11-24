@@ -5,7 +5,7 @@
 <div class="container">
     <div class="row">
         {% for item in items %}
-        <div class="col-sm-6 bucket-item">
+        <div class="col-sm-6 single-list bucket-item">
             <div class="panel panel-{{bucketlist.color}}">
                 <div class="panel-heading">{% if not item.done %} {{item.name}} {% else %}
                     <del> {{item.name}}</del> {% endif %}
@@ -37,11 +37,11 @@
                         <div class="col-sm-12">
                             <div class="radio-inline">
                                 <label>
-                                    <input class="radio-inline" maxlength="100" name="done" type="radio" value=True checked="{{item.done}}"> Yes</label>
+                                    <input class="radio-inline" maxlength="100" name="done" type="radio" value=True {% if  item.done %} checked {% endif %}> Yes</label>
                             </div>
                             <div class="radio-inline">
                                 <label>
-                                    <input class="radio-inline" maxlength="100" name="done" type="radio" value=False checked="{{item.done}}"> No</label>
+                            <input class="radio-inline" maxlength="100" name="done" type="radio" value=False {% if not item.done %} checked {% endif %}> No</label>
                             </div>
                         </div>
                     </div>

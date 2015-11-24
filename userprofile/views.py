@@ -115,3 +115,12 @@ class DashboardView(TemplateView):
         }
 
         return render(request, self.template_name, context)
+
+class ProfileView(TemplateView):
+    template_name = 'profile.html'
+    
+    def get_context_data(self, **kwargs):
+        context = super(ProfileView, self).get_context_data(**kwargs)
+        context['new_item'] = ItemForm(auto_id=False)
+        return context
+

@@ -34,12 +34,16 @@ form input{
     margin-bottom:10px;
 }
 
-form label{
+/*form label{
     color:#fff;
-}
+}*/
 .bucket-item{
     padding:20px;
     height:500px;
+}
+.single-list.bucket-item{
+    padding:20px;
+    height:250px;
 }
 .item-done{
     position: absolute;
@@ -55,7 +59,7 @@ ul.list-group li{
 ul.list-group li:hover button{
     visibility:visible;
 }
-.bucket-item .edit-form{
+.bucket-item .edit-form,.single-list .edit-form{
     display:none;
     padding:20px;
     position:relative;

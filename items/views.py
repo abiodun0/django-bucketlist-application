@@ -35,14 +35,11 @@ class ItemDoneView(View):
 class ItemEditView(View):
 
     def post(self, request, **kwargs):
-        print kwargs
         item_id = kwargs['id']
-        print item_id
         item = Item.objects.filter(id=item_id).first()
-        print item
         item.name = request.POST['name']
         item.description = request.POST['description']
-        item.done = request.POST['done']
+        item.done = bool(request.POST['done'])
         item.save()
         return redirect(
             request.META.get('HTTP_REFERER'),
