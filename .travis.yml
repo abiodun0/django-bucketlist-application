@@ -2,7 +2,7 @@ language: python
 python:
 - '2.7'
 env:
-- DJANGO_SETTINGS_MODULE=djangobucketlist.settings.test
+- DJANGO_SETTINGS_MODULE=django_bucketlist.settings.test
 install:
 - pip install --upgrade pip
 - pip install --upgrade virtualenv
@@ -10,8 +10,8 @@ install:
 - pip install coveralls
 - npm install bower
 script:
-- bower install --settings=djangobucketlist.settings.test
-- python djangobucketlist/manage.py collectstatic --noinput --settings=djangobucketlist.settings.test
+- bower install --settings=django_bucketlist.settings.test
+- python djangobucketlist/manage.py collectstatic --noinput --settings=django_bucketlist.settings.test
 - coverage run djangobucketlist/manage.py test
 after_success:
 - coveralls
