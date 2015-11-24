@@ -121,6 +121,7 @@ BOWER_INSTALLED_APPS = (
     'jquery',
     'bootstrap',
 )
+
 STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
 
 STATICFILES_DIRS = (
