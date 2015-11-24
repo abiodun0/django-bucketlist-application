@@ -16,4 +16,29 @@ class ItemDoneView(TemplateView):
         return redirect(
             '/dashboard',
             context_instance=RequestContext(request)
-        )
+            )
+        
+class ItemDeleteView(TemplateView):
+
+    def post(self, request, **kwargs):
+        item_id = kwargs['id']
+        item = Item.objects.filter(id=item_id).first()
+        item.delete()
+        return redirect(
+            '/dashboard',
+            context_instance=RequestContext(request)
+            )
+
+class ItemEditView(TemplateView):
+
+    def post(self, request, **kwargs):
+        item_id = kwargs['id']
+        item = Item.objects.filter(id=item_id).first()
+        item.name = request.POST['name']
+        item.description = request.POST['description']
+        item.done = request.POST['done']
+        item.save()
+        return redirect(
+            '/dashboard',
+            context_instance=RequestContext(request)
+            )

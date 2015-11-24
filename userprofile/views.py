@@ -95,12 +95,12 @@ class DashboardView(TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super(DashboardView, self).get_context_data(**kwargs)
-        context['new_bucketlist'] = BucketListForm(auto_id=False)
+        context['new_item'] = ItemForm(auto_id=False)
         return context
 
     def get(self, request, **kwargs):
         page = request.GET.get('page')
-        paginator = Paginator(request.user.bucketlists.all().reverse(), 6)
+        paginator = Paginator(request.user.bucketlists.all(), 6)
         try:
             bucketlists = paginator.page(page)
         except PageNotAnInteger:

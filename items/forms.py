@@ -7,8 +7,9 @@ class ItemForm(ModelForm):
     
 
     class Meta:
+        DONE = [(True, 'Yes'), (False, 'No'),]
         model = Item
-        fields = ['name', 'description',]
+        fields = ['name', 'description','done']
         widgets = {
             'description': Textarea(attrs={'class': 'form-control', 'rows': 2, 'placeholder': 'Items Description'}),
             'name': TextInput(attrs={
@@ -16,4 +17,5 @@ class ItemForm(ModelForm):
                 'autocomplete': 'off',
                 'class': 'form-control'
             }),
+            'done': RadioSelect(choices=DONE,attrs={'class':'radio-inline',}),
         }
