@@ -15,7 +15,6 @@ import os
 
 BASE_DIR = os.path.dirname(
     os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-print BASE_DIR
 
 
 # Quick-start development settings - unsuitable for production
@@ -117,6 +116,11 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.8/howto/static-files/
+# Bower configurations
+BOWER_INSTALLED_APPS = (
+    'jquery',
+    'bootstrap',
+)
 
 
 STATICFILES_DIRS = (
