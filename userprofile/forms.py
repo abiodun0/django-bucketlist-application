@@ -1,5 +1,80 @@
 from django import forms
+from django.forms import ModelForm, Textarea, TextInput, RadioSelect
+
 from django.contrib.auth.models import User
+
+class ProfileForm(ModelForm):
+    password = forms.CharField(max_length=100,
+                               widget=forms.PasswordInput(attrs={
+                                   'placeholder': 'Create secret password',
+                                   'class': 'form-control input-lg',
+                               }), required=False)
+    password_conf = forms.CharField(max_length=100,
+                                    widget=forms.PasswordInput(attrs={
+                                        'placeholder': 'Verify secret password',
+                                        'class': 'form-control input-lg',
+                                    }), required=False)
+    class Meta:
+        model = User
+        fields = ['first_name','last_name','email',]
+        widgets = {
+            'first_name': TextInput(attrs={
+                'placeholder': 'Your Name',
+                'autocomplete': 'off',
+                'class': 'form-control'
+            }),
+            'last_name': TextInput(attrs={
+                'placeholder': 'Last Name',
+                'autocomplete': 'off',
+                'class': 'form-control'}),
+            'email': TextInput(attrs={
+                'placeholder': 'Last Name',
+                'autocomplete': 'off',
+                'class': 'form-control'
+                }),
+
+            }
+
+
+
+    def clean(self):
+        if 'password' in self.cleaned_data and 'password_conf' in self.cleaned_data:
+            if self.cleaned_data['password'] != self.cleaned_data['password_conf']:
+                raise forms.ValidationError(
+                    "You must type in the same password each time")
+        return self.cleaned_data
+
+    def save(self, commit=True):
+        user = super(ProfileForm, self).save(commit=False)
+        password = self.cleaned_data["password"]
+        if password:
+            user.set_password(password)
+        if commit:
+            user.save()
+        return user
+
+
+class ChangePassword(forms.ModelForm):
+    class Meta:
+        model = User
+        fields = ['first_name','last_name','email',]
+        widgets = {
+            'first_name': TextInput(attrs={
+                'placeholder': 'Your Name',
+                'autocomplete': 'off',
+                'class': 'form-control'
+            }),
+            'last_name': TextInput(attrs={
+                'placeholder': 'Last Name',
+                'autocomplete': 'off',
+                'class': 'form-control'}),
+            'email': TextInput(attrs={
+                'placeholder': 'Last Name',
+                'autocomplete': 'off',
+                'class': 'form-control'
+                }),
+
+            }
 
 
 class LoginForm(forms.Form):

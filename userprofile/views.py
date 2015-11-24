@@ -1,4 +1,5 @@
 from django.contrib.auth.decorators import login_required
+
 from django.utils.decorators import method_decorator
 from django.views.generic import View, TemplateView
 from django.shortcuts import render, redirect
@@ -7,7 +8,7 @@ from django.contrib import messages
 from django.template import RequestContext, loader
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
-from userprofile.forms import RegisterForm, LoginForm
+from userprofile.forms import RegisterForm, LoginForm,ProfileForm
 from bucketlists.forms import BucketListForm
 from items.forms import ItemForm
 
@@ -90,7 +91,7 @@ class SignUpView(IndexBaseView):
             return render(request, self.template_name, context)
 
 
-class DashboardView(TemplateView):
+class DashboardView(TemplateView, LoginRequiredMixin):
     template_name = 'dashboard.html'
 
     def get_context_data(self, **kwargs):
@@ -116,11 +117,33 @@ class DashboardView(TemplateView):
 
         return render(request, self.template_name, context)
 
-class ProfileView(TemplateView):
+class ProfileView(TemplateView, LoginRequiredMixin):
     template_name = 'profile.html'
-    
+    form_class = ProfileForm
+
+
     def get_context_data(self, **kwargs):
         context = super(ProfileView, self).get_context_data(**kwargs)
-        context['new_item'] = ItemForm(auto_id=False)
+        context['profileform'] = self.form_class(initial={
+            'first_name': self.request.user.first_name,
+            'last_name': self.request.user.last_name,
+            'email': self.request.user.email
+            })
         return context
+
+    def post(self, request, **kwargs):
+        form = self.form_class(data=request.POST,instance=request.user)
+        if form.is_valid():
+            form.save()
+            messages.add_message(
+                request, messages.SUCCESS, 'Profile Updated!')
+            return redirect(
+                request.META.get('HTTP_REFERER'),
+                context_instance=RequestContext(request)
+                )
+        else:
+            return redirect(
+                request.META.get('HTTP_REFERER'),
+                context_instance=RequestContext(request)
+                )
 

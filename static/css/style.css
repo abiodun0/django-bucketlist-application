@@ -59,6 +59,9 @@ ul.list-group li{
 ul.list-group li:hover button{
     visibility:visible;
 }
+.navbar-form label{
+    color:#fff;
+}
 .bucket-item .edit-form,.single-list .edit-form{
     display:none;
     padding:20px;
