@@ -1,0 +1,24 @@
+language: python
+python:
+- '2.7'
+env:
+- DJANGO_SETTINGS_MODULE=djangobucketlist.settings.test
+install:
+- pip install --upgrade pip
+- pip install --upgrade virtualenv
+- pip install -r requirements.txt
+- pip install coveralls
+- npm install bower
+script:
+- bower install --settings=djangobucketlist.settings.test
+- python djangobucketlist/manage.py collectstatic --noinput --settings=djangobucketlist.settings.test
+- coverage run djangobucketlist/manage.py test
+after_success:
+- coveralls
+deploy:
+  provider: heroku
+  api_key:
+    secure: y5CzPKINDRHgfI0kVB9CKbaQx/u8UFHVlXUngGoigZzlqahtnhIHEBvtr9pEt/PgCnTgw8Y1C1KDH/d4cFKZyOgZ71+jcDLmjEAFuaI4vWRNlP15PzmCcBCayJV4QzEsMTlP/TqlFnlCA5va4JN/xI4hEFAI99rTh8ce+H7TK/o5bYWG3sRNWo4NZd14KYiVfcVBHiaU/u5ZhCE3OAEQSFpI/AbXAF7uinerSxlJ2R1/gQTYfj79rA8N9S52wwpjlb9i+PEpaRedaHkPA8zssS4Ycq8P7gj52yQLfgGjBMV/0yu/9BTzVBN574nARmm20p5+B+8A7csL/UkOf2mYiDeFLXGE/dX2CJYOjRtLt/8AlU1cvwu7LY0Fxubrv5Wn7sTD8vS2kSwo1WaIoRC2G4r/y1rpwjsXVZGfqD3w2AbNd+y/LjMX33BnUsufwLklkZCZdwU7mwOtg35xO6sm9O6Ymsi6LWfXZNT78gFuOtbO65esTOUQFFcLXvAIu4qLIxIBGhJ1aStL97FKqb+8jzOMOIJqgPx65XtY8ezuTJdpsPuH7+hyAMpY7YpDzCtWH1KYP5VTZ0wEFo9KDOMsWAm0zX/bAC6pDZI34SwX/A4VWlpMfZzwfVLOWym9boRDsGoJH3//BvK6/lXoX2v2k5gyPMXqcYfhWnsN8+ZET+k=
+  app: django-bucketlist
+  on:
+    repo: andela-ashuaib/django-bucketlist

@@ -14,6 +14,17 @@ from items.forms import ItemForm
 
 # Create your views here.
 
+class IndexView(TemplateView):
+
+    def dispatch(self, request, *args, **kwargs):
+        if request.user.is_authenticated():
+            messages.add_message(
+                request, messages.SUCCESS, 'Welcome back!')
+            return redirect(
+                '/dashboard',
+                context_instance=RequestContext(request)
+            )
+        return super(IndexView, self).dispatch(request, *args, **kwargs)
 
 class LoginRequiredMixin(object):
     # View mixin which requires that the user is authenticated.
@@ -24,7 +35,7 @@ class LoginRequiredMixin(object):
             request, *args, **kwargs)
 
 
-class IndexBaseView(TemplateView):
+class IndexBaseView(IndexView):
     template_name = 'index.html'
 
     def get_context_data(self, **kwargs):
@@ -91,7 +102,7 @@ class SignUpView(IndexBaseView):
             return render(request, self.template_name, context)
 
 
-class DashboardView(TemplateView, LoginRequiredMixin):
+class DashboardView(LoginRequiredMixin, TemplateView):
     template_name = 'dashboard.html'
 
     def get_context_data(self, **kwargs):
@@ -117,7 +128,7 @@ class DashboardView(TemplateView, LoginRequiredMixin):
 
         return render(request, self.template_name, context)
 
-class ProfileView(TemplateView, LoginRequiredMixin):
+class ProfileView(LoginRequiredMixin, TemplateView):
     template_name = 'profile.html'
     form_class = ProfileForm
 
