@@ -41,8 +41,9 @@ class BucketListEditView(TemplateView):
     def get(self, request, **kwargs):
         bucketlist_id = kwargs['id']
         page = request.GET.get('page')
+        q = request.GET.get('q', "")
         bucketlist = BucketList.objects.filter(id=bucketlist_id).first()
-        paginator = Paginator(bucketlist.items.all(), 6)
+        paginator = Paginator(bucketlist.items.filter(name__contains=q), 6)
         try:
             items = paginator.page(page)
         except PageNotAnInteger:

@@ -2,11 +2,11 @@
 <div class="container">
     <div class="row text-center">
         <div class="col-sm-4">
-            <form class "form-control">
+            <form class "form-control" action="" method="get">
                 <div class="input-group">
-                    <input type="text" class="form-control" placeholder="Search for...">
+                    <input type="text" name="q" class="form-control" placeholder="Search for...">
                     <span class="input-group-btn">
-        <button class="btn btn-default bucket-link" type="button">Go!</button>
+        <button class="btn btn-default" type="submit">Go!</button>
       </span>
                 </div>
             </form>
@@ -20,6 +20,14 @@
             <a class="btn btn-block btn-default new-bucket-link" data-toggle="modal" data-target="#bucketlistModal"> Add New Bucket List Collections<span class="glyphicon glyphicon-plus"></span></a>
         </div>
     </div>
+    {% if search|length > 0 %}
+    <div class="row">
+        <div class="col-sm-4 col-sm-offset-4">
+        <div class="alert alert-info">Results for "{{search}}"</div>
+            
+        </div>
+    </div>
+    {% endif %}
 </div>
 <div class="container">
 
@@ -107,7 +115,7 @@
             </div>
         </div>
         {% empty %}
-        <p class="text-center text-danger"> You Currently have no bucketlist add one nnow</p>
+                <p class="text-info text-center"> {% if request.user.bucketlists.all|length > 0 %} No items matches your search criteria {% else %} You have no bucketlist add one now</p>{% endif %}
         {% endfor %}
     </div>
     {% if bucketlists|length > 0 %}

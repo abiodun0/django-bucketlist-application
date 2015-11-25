@@ -2,7 +2,6 @@ from rest_framework import serializers
 from django.contrib.auth.models import User
 from bucketlists.models import BucketList
 from items.models import Item
-from userprofile.models import UserProfile
 
 
 class UserSerializer(serializers.ModelSerializer):

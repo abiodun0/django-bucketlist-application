@@ -9,11 +9,12 @@ from django.contrib import messages
 from django.template import RequestContext, loader
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
-from userprofile.forms import RegisterForm, LoginForm,ProfileForm
+from userprofile.forms import RegisterForm, LoginForm, ProfileForm
 from bucketlists.forms import BucketListForm
 from items.forms import ItemForm
 
 # Create your views here.
+
 
 class IndexView(TemplateView):
 
@@ -24,6 +25,7 @@ class IndexView(TemplateView):
                 context_instance=RequestContext(request)
             )
         return super(IndexView, self).dispatch(request, *args, **kwargs)
+
 
 class LoginRequiredMixin(object):
     # View mixin which requires that the user is authenticated.
@@ -86,7 +88,8 @@ class SignUpView(IndexBaseView):
             new_user = authenticate(username=request.POST['username'],
                                     password=request.POST['password'])
             login(request, new_user)
-            messages.success(request, 'Welcome, you can start creating your bucketlist collection by clicking on the icon above')
+            messages.success(
+                request, 'Welcome, you can start creating your bucketlist collection by clicking on the icon above')
             return redirect(
                 '/dashboard',
                 context_instance=RequestContext(request)
@@ -110,7 +113,9 @@ class DashboardView(LoginRequiredMixin, TemplateView):
 
     def get(self, request, **kwargs):
         page = request.GET.get('page')
-        paginator = Paginator(request.user.bucketlists.all(), 6)
+        q = request.GET.get('q',"")
+        paginator = Paginator(
+            request.user.bucketlists.filter(name__contains=q), 6)
         try:
             bucketlists = paginator.page(page)
         except PageNotAnInteger:
@@ -120,16 +125,17 @@ class DashboardView(LoginRequiredMixin, TemplateView):
 
         context = {
             'bucketlists': bucketlists,
+            'search':q,
             'new_item': ItemForm(auto_id=False),
             'new_bucketlist': BucketListForm(auto_id=False)
         }
 
         return render(request, self.template_name, context)
 
+
 class ProfileView(LoginRequiredMixin, TemplateView):
     template_name = 'profile.html'
     form_class = ProfileForm
-
 
     def get_context_data(self, **kwargs):
         context = super(ProfileView, self).get_context_data(**kwargs)
@@ -137,11 +143,11 @@ class ProfileView(LoginRequiredMixin, TemplateView):
             'first_name': self.request.user.first_name,
             'last_name': self.request.user.last_name,
             'email': self.request.user.email
-            })
+        })
         return context
 
     def post(self, request, **kwargs):
-        form = self.form_class(data=request.POST,instance=request.user)
+        form = self.form_class(data=request.POST, instance=request.user)
         if form.is_valid():
             form.save()
             messages.success(request, 'Profile updated')
@@ -149,15 +155,15 @@ class ProfileView(LoginRequiredMixin, TemplateView):
             return redirect(
                 request.META.get('HTTP_REFERER'),
                 context_instance=RequestContext(request)
-                )
+            )
         else:
-            messages.error(request, 'There was an error with the fields you entered')
+            messages.error(
+                request, 'There was an error with the fields you entered')
 
             context = super(ProfileView, self).get_context_data(**kwargs)
             context['profileform'] = self.form_class(initial={
-            'first_name': self.request.user.first_name,
-            'last_name': self.request.user.last_name,
-            'email': self.request.user.email
+                'first_name': self.request.user.first_name,
+                'last_name': self.request.user.last_name,
+                'email': self.request.user.email
             })
             return render(request, self.template_name, context)
-
