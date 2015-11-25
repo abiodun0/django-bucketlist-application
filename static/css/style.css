@@ -103,3 +103,14 @@ ul.list-group li:hover button, .single-item:hover button{
 .radio-inline{
     padding:10px;
 }
+
+@media (max-width: 767px) {
+  ul.list-group button,.single-item button{
+
+    visibility:visible;
+  }
+  .bucket-item .panel-heading a{
+    visibility:visible;
+  }
+
+}
