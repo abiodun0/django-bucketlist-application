@@ -1,2 +1,2 @@
-# Django Bucketlist
+# Django Bucketlist App
 
