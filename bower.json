@@ -2,7 +2,7 @@
   "name": "django_bucketlist",
   "homepage": "https://github.com/andela-ashuaib/django-bucketlist",
   "description": "",
-  "main": "",
+  "main": "manage.py",
   "moduleType": [
     "node"
   ],
