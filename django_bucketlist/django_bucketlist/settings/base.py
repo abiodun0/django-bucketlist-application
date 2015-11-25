@@ -39,6 +39,7 @@ MESSAGE_TAGS = {
 
 }
 
+BOWER_COMPONENTS_ROOT = os.path.join(BASE_DIR, '..', 'components')
 # Application definition
 
 INSTALLED_APPS = (
@@ -128,7 +129,7 @@ BOWER_INSTALLED_APPS = (
 
 STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
 
-BOWER_COMPONENTS_ROOT = BASE_DIR
+# BOWER_COMPONENTS_ROOT = BASE_DIR
 
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'static'),
