@@ -17,7 +17,6 @@ from django.contrib.messages import constants as message_constants
 BASE_DIR = os.path.dirname(
     os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
-
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.8/howto/deployment/checklist/
 
@@ -40,7 +39,7 @@ MESSAGE_TAGS = {
 
 }
 
-BOWER_COMPONENTS_ROOT = os.path.join(BASE_DIR, '..', 'components')
+BOWER_COMPONENTS_ROOT = os.path.join(BASE_DIR,'..','components')
 # Application definition
 
 INSTALLED_APPS = (
@@ -130,7 +129,7 @@ BOWER_INSTALLED_APPS = (
 
 STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
 
-BOWER_COMPONENTS_ROOT = BASE_DIR
+# BOWER_COMPONENTS_ROOT = BASE_DIR
 
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'static'),
