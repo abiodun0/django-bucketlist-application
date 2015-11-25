@@ -24,6 +24,7 @@ deploy:
     repo: andela-ashuaib/django-bucketlist
   run:
     - "export DJANGO_SETTINGS_MODULE=django_bucketlist.settings.production"
+    - "python bucketlist/manage.py bower install"
     - "python manage.py collectstatic --noinput"
     - "python manage.py makemigrations"
     - "python manage.py migrate"
