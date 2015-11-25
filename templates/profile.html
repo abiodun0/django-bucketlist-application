@@ -115,12 +115,14 @@
                         {{profileform.last_name.as_hidden}}
 
                         {{profileform.email.as_hidden}}
-                            
+                            {{ profileform.non_field_errors }}
                             <div class="form-group">
                                 {{profileform.password}}
+                                
                             </div>
                             <div class="form-group">
                                 {{profileform.password_conf}}
+
                             </div>
 
                             <div class="form-group">

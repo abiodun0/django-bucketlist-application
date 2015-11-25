@@ -54,27 +54,6 @@ class ProfileForm(ModelForm):
         return user
 
 
-class ChangePassword(forms.ModelForm):
-    class Meta:
-        model = User
-        fields = ['first_name','last_name','email',]
-        widgets = {
-            'first_name': TextInput(attrs={
-                'placeholder': 'Your Name',
-                'autocomplete': 'off',
-                'class': 'form-control'
-            }),
-            'last_name': TextInput(attrs={
-                'placeholder': 'Last Name',
-                'autocomplete': 'off',
-                'class': 'form-control'}),
-            'email': TextInput(attrs={
-                'placeholder': 'Last Name',
-                'autocomplete': 'off',
-                'class': 'form-control'
-                }),
-
-            }
 
 
 class LoginForm(forms.Form):
@@ -137,7 +116,7 @@ class RegisterForm(forms.Form):
         except User.DoesNotExist:
             return self.cleaned_data['username']
         raise forms.ValidationError(
-            "This user already exist in the database, please choose another username")
+            "This user already exist, please choose another username")
 
     def clean_email(self):
         try:

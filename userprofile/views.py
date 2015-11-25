@@ -69,7 +69,7 @@ class IndexBaseView(IndexView):
                     context_instance=RequestContext(request)
                 )
         else:
-            context = super(LoginView, self).get_context_data(**kwargs)
+            context = super(IndexBaseView, self).get_context_data(**kwargs)
             context['loginform'] = form
             return render(request, self.template_name, context)
 
@@ -153,8 +153,11 @@ class ProfileView(LoginRequiredMixin, TemplateView):
                 context_instance=RequestContext(request)
                 )
         else:
-            return redirect(
-                request.META.get('HTTP_REFERER'),
-                context_instance=RequestContext(request)
-                )
+            context = super(ProfileView, self).get_context_data(**kwargs)
+            context['profileform'] = self.form_class(initial={
+            'first_name': self.request.user.first_name,
+            'last_name': self.request.user.last_name,
+            'email': self.request.user.email
+            })
+            return render(request, self.template_name, context)
 

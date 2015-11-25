@@ -12,12 +12,21 @@
         <div id="navbar" class="navbar-collapse collapse">
             {% if not request.user.is_authenticated %}
             <form class="navbar-form navbar-right" action="{% url 'index' %}" method="post">
+                {% if messages %}
+                    {% for message in messages %}
+                        <div class="alert alert-danger" role="alert">
+                            {{ message }}
+                        </div>
+                    {% endfor %}    
+                {% endif %}
                 {% csrf_token %}
                 <div class="form-group">
                     {{ loginform.username }}
+                    {{ loginform.username.errors }}
                 </div>
                 <div class="form-group">
                     {{ loginform.password }}
+                    {{ loginform.password.errors }}
                 </div>
                 <div class="form-group">
                     <label>
