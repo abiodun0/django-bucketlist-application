@@ -17,6 +17,9 @@ after_success:
 - coveralls
 deploy:
   provider: heroku
+  buildpack:
+    - node
+    - python
   api_key:
     secure: 3fUP9yiBa8P7GM/4hkyEhJfamqBDYMN7ykvPt1k8EK4LNm67UKpr5WMvxiCD5rdpzteB978ERFdnHxy+/6zzWxitIVxP51eRjP8T2ACtfW6VhVY9ClX6HYxCG87R1R3fIRA98t6hX3dcTB6v4GkL2VhHD+pzu56hxmwn+nJJZemDCAQ7vaqc/ADhPy//o3G8rhXaak3EbZ9dyUSj/Iw1bXd0csf4qnWPRgzyTBCj5qY/a05CBew5Zu1N45n0vqDqoDx7sW0ZuuVR8V59Cazd4/r/VYUT0Xihiy6/KS0L5JhzfQbDp668DHml0HOyTEbTi9jjEftiFW/Bu9Y+C1XJrYtA825UiZHz7LnFKDxFFvp0bQIGWlNq9wCYTnjFRmokgySbI5j0DxElPSvRVdxw7kfftH1PCMDVs7WtMkPxyN56RphzCzWkg5L+5W01mAkeM7O5nMatuthfrV6hgWJ7+NR8fR+kcI1ewDpK3M5vj0Lta+PexCXT3SeXNU6QDt3ID19t0r2hBxt0+6bsa0+NgFPZyRChwczhEf9/UFCdV/+1nQiHAMvXov8ReAmYggsmeA68BWVDuvMT7IBLsQRfTMIPqU8OAkTEDIQFb30DzUtkeYjbM/eta3xO85+geWU9+/eqk7LtF9Yl67Kn9fjQHRC4ac/kGujznVqh0ekyCoM=
   app: bucketlist-app
