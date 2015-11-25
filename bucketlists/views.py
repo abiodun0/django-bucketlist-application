@@ -22,11 +22,13 @@ class BucketListView(DashboardView):
         bucketlist = form.save(commit=False)
         bucketlist.owner = request.user
         bucketlist.save()
+        messages.success(request, bucketlist.name + ' Successfully created')
         return redirect(
             request.META.get('HTTP_REFERER'),
             context_instance=RequestContext(request)
         )
     pass
+
 
 class BucketListEditView(TemplateView):
     template_name = 'bucketlist.html'
@@ -35,7 +37,6 @@ class BucketListEditView(TemplateView):
         bucketlist_id = kwargs['id']
         context = super(BucketListEditView, self).get_context_data(**kwargs)
         return context
-        
 
     def get(self, request, **kwargs):
         bucketlist_id = kwargs['id']
@@ -54,8 +55,6 @@ class BucketListEditView(TemplateView):
         context['new_item'] = ItemForm(auto_id=False)
         return render(request, self.template_name, context)
 
-
-
     def post(self, request, **kwargs):
         bucketlist_id = kwargs['id']
         bucketlist = BucketList.objects.filter(id=bucketlist_id).first()
@@ -65,13 +64,16 @@ class BucketListEditView(TemplateView):
             bucketlist.color = request.POST['color']
 
         bucketlist.save()
+        messages.success(request, bucketlist.name + ' updated')
         return redirect(
-           request.META.get('HTTP_REFERER'),
+            request.META.get('HTTP_REFERER'),
             context_instance=RequestContext(request)
         )
     pass
 
+
 class BucketListAddItemView(TemplateView):
+
     def post(self, request, **kwargs):
         bucketlist_id = kwargs['id']
         bucketlist = BucketList.objects.filter(id=bucketlist_id).first()
@@ -80,18 +82,21 @@ class BucketListAddItemView(TemplateView):
         item.bucketlist = bucketlist
         item.done = False
         item.save()
+        messages.success(request, item.name + ' Added to ' + bucketlist.name)
         return redirect(
             request.META.get('HTTP_REFERER'),
             context_instance=RequestContext(request)
         )
 
+
 class BucketListDeleteView(TemplateView):
+
     def post(self, request, **kwargs):
         bucketlist_id = kwargs['id']
         bucketlist = BucketList.objects.filter(id=bucketlist_id).first()
         bucketlist.delete()
+        messages.success(request, 'Successfully Deleted')
         return redirect(
             request.META.get('HTTP_REFERER'),
             context_instance=RequestContext(request)
         )
-

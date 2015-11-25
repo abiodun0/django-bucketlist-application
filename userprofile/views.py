@@ -5,6 +5,7 @@ from django.views.generic import View, TemplateView
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login
 from django.contrib import messages
+
 from django.template import RequestContext, loader
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
@@ -18,8 +19,6 @@ class IndexView(TemplateView):
 
     def dispatch(self, request, *args, **kwargs):
         if request.user.is_authenticated():
-            messages.add_message(
-                request, messages.SUCCESS, 'Welcome back!')
             return redirect(
                 '/dashboard',
                 context_instance=RequestContext(request)
@@ -55,15 +54,13 @@ class IndexBaseView(IndexView):
             if user is not None:
                 if user.is_active:
                     login(request, user)
-                    messages.add_message(
-                        request, messages.SUCCESS, 'Logged in Successfully!')
+                    messages.success(request, 'Successfully Logged In')
                     return redirect(
                         '/dashboard',
                         context_instance=RequestContext(request)
                     )
             else:
-                messages.add_message(
-                    request, messages.ERROR, 'Incorrect username or password!')
+                messages.error(request, 'Username and password incorrect')
                 return redirect(
                     '/',
                     context_instance=RequestContext(request)
@@ -89,6 +86,7 @@ class SignUpView(IndexBaseView):
             new_user = authenticate(username=request.POST['username'],
                                     password=request.POST['password'])
             login(request, new_user)
+            messages.success(request, 'Welcome, you can start creating your bucketlist collection by clicking on the icon above')
             return redirect(
                 '/dashboard',
                 context_instance=RequestContext(request)
@@ -146,13 +144,15 @@ class ProfileView(LoginRequiredMixin, TemplateView):
         form = self.form_class(data=request.POST,instance=request.user)
         if form.is_valid():
             form.save()
-            messages.add_message(
-                request, messages.SUCCESS, 'Profile Updated!')
+            messages.success(request, 'Profile updated')
+
             return redirect(
                 request.META.get('HTTP_REFERER'),
                 context_instance=RequestContext(request)
                 )
         else:
+            messages.error(request, 'There was an error with the fields you entered')
+
             context = super(ProfileView, self).get_context_data(**kwargs)
             context['profileform'] = self.form_class(initial={
             'first_name': self.request.user.first_name,

@@ -34,9 +34,12 @@ form input{
     margin-bottom:10px;
 }
 
-/*form label{
-    color:#fff;
-}*/
+a.link-bucket{
+    text-decoration: none;
+    visibility:visible !important;
+    color:inherit !important;
+
+}
 .bucket-item{
     padding:20px;
     height:500px;
@@ -50,13 +53,17 @@ form input{
     bottom: 0;
     right: 0;
 }
-ul.list-group button{
+.single-item{
+    position:relative;
+}
+
+ul.list-group button,.single-item button{
     visibility:hidden;
 }
 ul.list-group li{
     position:relative;
 }
-ul.list-group li:hover button{
+ul.list-group li:hover button, .single-item:hover button{
     visibility:visible;
 }
 .navbar-form label{
