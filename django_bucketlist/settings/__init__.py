@@ -1,7 +1,5 @@
-import os
+# import os
 # if not os.getenv('TRAVIS') and not os.getenv('HEROKU'):
-#     from django_envie.workroom import convertfiletovars
-#     convertfiletovars()
 #     try:
 #         from development import *
 #     except ImportError:
