@@ -10,21 +10,20 @@ install:
 - pip install coveralls
 - npm install bower
 script:
-- bower install --save --settings=django_bucketlist.settings.test
+- bower install --settings=django_bucketlist.settings.test
 - python manage.py collectstatic --noinput --settings=django_bucketlist.settings.test
 - coverage run manage.py test
 after_success:
 - coveralls
-
 deploy:
   provider: heroku
   api_key:
-    secure: EsdRQqEu3D/CQEK+WB3ZOBsUf/7SietaDPJ4dqKGMjCpGBjKDhjhUcg0NJmtT/4bucfGo4vlk6AuLvhxiVHuat+I90D2gAYadooaVEVP6GzDGmJTfqg6RlUlRPGTHzKy+QVHYNk8yz7GGmstH8I59lWhs6dDYLf324b+1Hgsfe/aWgAqmsDAVaoPDjI96PimoU3uTcg16ZZXxLYH0oaF4PykqcsqwbQzKFQvXD2WpvwGYL6rlPQT/SBE+Lg5U1SyWVh5mZMvqP+rYWZg33DlXaR0pWvLqjOytQRfAMI72at+MVzj+SeuVvcIuXvM0JeOG52a2wXDcJIru7IAr3ncaIljNpSky7yypON+DjmD75WGspewrSrdzGAgOE+JMw6LaOt3A2b8kb8+/hRPmhc8Debt1GF3evMZn28g29VtRpeZ8S6OQ2VOsyRFZrRAV0L26iaoWn26YUIly1QIPGKFJqDPDSl+Eofs6xwU/H1BHp2UsW+PoyR/Ng23D5VM2TF9Jlum5Jw/a0qeWK/zCutTU4GGOCCrfEZYqpMssebVspJT/hI2x+o7y1yET1hU4IL/Y0HOO0J8kB7VbJOVzLld1jAKlKKv2QMjaJySc8mjdX0J6hf7piMX7A4ZCknS7Ry32mna1MloVnvt0hAdfwiAZ0yE2UK6IP/B5Z64CqjSCL8=
-  app: django-bucketlist
+    secure: 3fUP9yiBa8P7GM/4hkyEhJfamqBDYMN7ykvPt1k8EK4LNm67UKpr5WMvxiCD5rdpzteB978ERFdnHxy+/6zzWxitIVxP51eRjP8T2ACtfW6VhVY9ClX6HYxCG87R1R3fIRA98t6hX3dcTB6v4GkL2VhHD+pzu56hxmwn+nJJZemDCAQ7vaqc/ADhPy//o3G8rhXaak3EbZ9dyUSj/Iw1bXd0csf4qnWPRgzyTBCj5qY/a05CBew5Zu1N45n0vqDqoDx7sW0ZuuVR8V59Cazd4/r/VYUT0Xihiy6/KS0L5JhzfQbDp668DHml0HOyTEbTi9jjEftiFW/Bu9Y+C1XJrYtA825UiZHz7LnFKDxFFvp0bQIGWlNq9wCYTnjFRmokgySbI5j0DxElPSvRVdxw7kfftH1PCMDVs7WtMkPxyN56RphzCzWkg5L+5W01mAkeM7O5nMatuthfrV6hgWJ7+NR8fR+kcI1ewDpK3M5vj0Lta+PexCXT3SeXNU6QDt3ID19t0r2hBxt0+6bsa0+NgFPZyRChwczhEf9/UFCdV/+1nQiHAMvXov8ReAmYggsmeA68BWVDuvMT7IBLsQRfTMIPqU8OAkTEDIQFb30DzUtkeYjbM/eta3xO85+geWU9+/eqk7LtF9Yl67Kn9fjQHRC4ac/kGujznVqh0ekyCoM=
+  app: bucketlist-app
   on:
     repo: andela-ashuaib/django-bucketlist
-  run:
-    - "export DJANGO_SETTINGS_MODULE=django_bucketlist.settings.production"
-    - "python manage.py collectstatic --noinput"
-    - "python manage.py makemigrations"
-    - "python manage.py migrate"
+run:
+    - "export DJANGO_SETTINGS_MODULE=djangobucketlist.settings.production"
+    - "python djangobucketlist/manage.py collectstatic --noinput"
+    - "python djangobucketlist/manage.py makemigrations"
+    - "python djangobucketlist/manage.py migrate"
