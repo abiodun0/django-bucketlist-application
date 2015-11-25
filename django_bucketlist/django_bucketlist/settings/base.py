@@ -40,6 +40,7 @@ MESSAGE_TAGS = {
 
 }
 
+BOWER_COMPONENTS_ROOT = os.path.join(BASE_DIR, '..', 'components')
 # Application definition
 
 INSTALLED_APPS = (
