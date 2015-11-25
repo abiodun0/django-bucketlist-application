@@ -17,8 +17,16 @@ after_success:
 - coveralls
 deploy:
   provider: heroku
+  buildpack:
+    - node
+    - python
   api_key:
     secure: gOfuu5fFr6L7irB5TDcO49MPQ25vKUpQBeSv4ny9Qb0qBErWRq7BBK0EaUBUpu+arBcpiuC8zD2E80EotFTmRU/203Zyfoir1qSxMml91JDWJxywTXhwBWJkPL/0OS+pQj0+FYdYqSl1aOIEDJR/Nj+g6LRYhuzREqe2myzCUrJKUL4mJdJe0ZZlEm9iTd2EXn0TeywcK5dFKBoTnrg0GBdHWPMBqi3E7Y4ZhDRLUDqb/3P+DcuYfB7x1SAAXqZPi5e0bO1roZFX6u22yLe4PYCOxFT7MLvAFlmLIELNAtqwqKm/g5wDtVKzPRTsS8DShmw1qHc06KUKAZMpBuCFLionQXcck2H/WO/yJ/tOOBLtldpSeVFsiP4QHVR3onm1bqpryChjskOwJ3Pl/Y6dEjaSiOFClR8Xyofi1YvpoY9CvryRtj8AB8BidJeFc+MhLIqGu4Nx4O/IK4kpbpWpIkC5b/RYXgw6TxTgRcwJtWDsE4LrVgd3B2d3bL/H/O11i0BYHlsWO05k8X5ZlEoU0F0qVkvp/JPe+xOhEbB8Ha8A850UcrRi1CTyhppB7yTjhcfCi3+qXZh1Algd0VJS9HfWRL/qh2bJeI7tbgtcE/ca+it2+LOQagpFkAi1qfTNPGgF1IuZc4gPTmqh1H2usHO4zL9QKrLxu4IkHkpNOCI=
   app: django-bucketlist
   on:
     repo: andela-ashuaib/django-bucketlist
+  run:
+    - "export DJANGO_SETTINGS_MODULE=django_bucketlist.settings.production"
+    - "python manage.py collectstatic --noinput"
+    - "python manage.py makemigrations"
+    - "python manage.py migrate"
