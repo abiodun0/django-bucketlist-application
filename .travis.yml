@@ -17,16 +17,8 @@ after_success:
 - coveralls
 deploy:
   provider: heroku
-  buildpack:
-    - node
-    - python
   api_key:
-    secure: 3fUP9yiBa8P7GM/4hkyEhJfamqBDYMN7ykvPt1k8EK4LNm67UKpr5WMvxiCD5rdpzteB978ERFdnHxy+/6zzWxitIVxP51eRjP8T2ACtfW6VhVY9ClX6HYxCG87R1R3fIRA98t6hX3dcTB6v4GkL2VhHD+pzu56hxmwn+nJJZemDCAQ7vaqc/ADhPy//o3G8rhXaak3EbZ9dyUSj/Iw1bXd0csf4qnWPRgzyTBCj5qY/a05CBew5Zu1N45n0vqDqoDx7sW0ZuuVR8V59Cazd4/r/VYUT0Xihiy6/KS0L5JhzfQbDp668DHml0HOyTEbTi9jjEftiFW/Bu9Y+C1XJrYtA825UiZHz7LnFKDxFFvp0bQIGWlNq9wCYTnjFRmokgySbI5j0DxElPSvRVdxw7kfftH1PCMDVs7WtMkPxyN56RphzCzWkg5L+5W01mAkeM7O5nMatuthfrV6hgWJ7+NR8fR+kcI1ewDpK3M5vj0Lta+PexCXT3SeXNU6QDt3ID19t0r2hBxt0+6bsa0+NgFPZyRChwczhEf9/UFCdV/+1nQiHAMvXov8ReAmYggsmeA68BWVDuvMT7IBLsQRfTMIPqU8OAkTEDIQFb30DzUtkeYjbM/eta3xO85+geWU9+/eqk7LtF9Yl67Kn9fjQHRC4ac/kGujznVqh0ekyCoM=
-  app: bucketlist-app
+    secure: gOfuu5fFr6L7irB5TDcO49MPQ25vKUpQBeSv4ny9Qb0qBErWRq7BBK0EaUBUpu+arBcpiuC8zD2E80EotFTmRU/203Zyfoir1qSxMml91JDWJxywTXhwBWJkPL/0OS+pQj0+FYdYqSl1aOIEDJR/Nj+g6LRYhuzREqe2myzCUrJKUL4mJdJe0ZZlEm9iTd2EXn0TeywcK5dFKBoTnrg0GBdHWPMBqi3E7Y4ZhDRLUDqb/3P+DcuYfB7x1SAAXqZPi5e0bO1roZFX6u22yLe4PYCOxFT7MLvAFlmLIELNAtqwqKm/g5wDtVKzPRTsS8DShmw1qHc06KUKAZMpBuCFLionQXcck2H/WO/yJ/tOOBLtldpSeVFsiP4QHVR3onm1bqpryChjskOwJ3Pl/Y6dEjaSiOFClR8Xyofi1YvpoY9CvryRtj8AB8BidJeFc+MhLIqGu4Nx4O/IK4kpbpWpIkC5b/RYXgw6TxTgRcwJtWDsE4LrVgd3B2d3bL/H/O11i0BYHlsWO05k8X5ZlEoU0F0qVkvp/JPe+xOhEbB8Ha8A850UcrRi1CTyhppB7yTjhcfCi3+qXZh1Algd0VJS9HfWRL/qh2bJeI7tbgtcE/ca+it2+LOQagpFkAi1qfTNPGgF1IuZc4gPTmqh1H2usHO4zL9QKrLxu4IkHkpNOCI=
+  app: django-bucketlist
   on:
     repo: andela-ashuaib/django-bucketlist
-  run:
-    - "export DJANGO_SETTINGS_MODULE=djangobucketlist.settings.production"
-    - "python manage.py collectstatic --noinput"
-    - "python manage.py makemigrations"
-    - "python manage.py migrate"
