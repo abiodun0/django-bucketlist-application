@@ -12,7 +12,7 @@ install:
 script:
 - bower install --settings=django_bucketlist.settings.test
 - python django_bucketlist/manage.py collectstatic --noinput --settings=django_bucketlist.settings.test
-- coverage run --source="django_bucketlist" django_bucketlist/manage.py test django_bucketlis
+- coverage run --source="django_bucketlist" django_bucketlist/manage.py test django_bucketlist
 after_success:
 - coveralls
 deploy:
