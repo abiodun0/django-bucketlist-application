@@ -27,7 +27,6 @@ class BucketListView(DashboardView):
             request.META.get('HTTP_REFERER'),
             context_instance=RequestContext(request)
         )
-    pass
 
 
 class BucketListEditView(TemplateView):
@@ -70,7 +69,6 @@ class BucketListEditView(TemplateView):
             request.META.get('HTTP_REFERER'),
             context_instance=RequestContext(request)
         )
-    pass
 
 
 class BucketListAddItemView(TemplateView):
