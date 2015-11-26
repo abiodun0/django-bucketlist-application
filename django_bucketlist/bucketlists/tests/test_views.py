@@ -19,27 +19,32 @@ class BucketListViewTest(TestCase):
         self.login = self.client.login(
             username='test', password='test')
         self.bucketlist = BucketList.objects.create(
-            name='test_bucketlist', owner=self.user)
+            name='test_bucketlist', description='desc', color='green', owner=self.user)
+
+        self.item = Item.objects.create(name='test items', bucketlist=self.bucketlist,description='a new desc',done=False)
 
     def tearDown(self):
         User.objects.all().delete()
         BucketList.objects.all().delete()
+        Item.objects.all().delete()
 
     def test_can_reach_bucketlist_page(self):
-        self.assertEqual(self.login, True)
         response = self.client.get(
             reverse('edit_bucketlist', kwargs={'id': self.bucketlist.id}))
         self.assertEqual(response.status_code, 200)
 
-    # def test_request_for_empty_bucketlist_page(self):
-    #     response = self.client.get(
-    #         '/bucketlist?page=100000')
-    #     # returns the last page available
-    #     self.assertEqual(response.status_code, 200)
+    def test_can_reach_max_page(self):
+        response = self.client.get(
+            reverse('edit_bucketlist', kwargs={'id': self.bucketlist.id}) + '?page=200')
 
-    # def test_can_make_a_bucketlist(self):
-    #     response = self.client.post(
-    #         reverse('bucketlist'), {
-    #             'name': 'A new bucketlist'
-    #         })
-    #     self.assertEqual(response.status_code, 302)
+       
+        self.assertEqual(response.status_code, 200)
+
+    def test_can_create_a_bucketlist(self):
+        #import pdb; pdb.set_trace()
+        data = {'name':'buckets','color':'green','description':'owner'}
+        response = self.client.post(
+            reverse('bucketlists'),data)
+
+        self.assertEqual(response.status_code, 302)
+

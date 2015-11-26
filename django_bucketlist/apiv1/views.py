@@ -26,7 +26,6 @@ class ProfileView(APIView):
         return Response(serialized.data)
 
     def post(self, request):
-        print request.data
         user = UserSerializer()
         response_user = user.create(data=request.data)
         serialzed_response = UserSerializer(response_user)

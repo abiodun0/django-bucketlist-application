@@ -32,11 +32,6 @@ class BucketListView(DashboardView):
 class BucketListEditView(TemplateView):
     template_name = 'bucketlist.html'
 
-    def get_context_data(self, **kwargs):
-        bucketlist_id = kwargs['id']
-        context = super(BucketListEditView, self).get_context_data(**kwargs)
-        return context
-
     def get(self, request, **kwargs):
         bucketlist_id = kwargs['id']
         page = request.GET.get('page')

@@ -4,7 +4,12 @@ from .models import BucketList
 
 
 class BucketListForm(ModelForm):
-    
+    def __init__(self, *args, **kwargs):
+        
+        super(BucketListForm, self).__init__(*args, **kwargs)
+        # there's a `fields` property now
+        self.fields['color'].required = False
+
 
     class Meta:
         COLORS = [('success', 'green'), ('default', 'gray'),
