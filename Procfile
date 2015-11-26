@@ -1,1 +1,1 @@
-web gunicorn django_bucketlist.wsgi --log-file - 
+web: gunicorn django_bucketlist.wsgi --pythonpath=django_bucketlist --log-file -
