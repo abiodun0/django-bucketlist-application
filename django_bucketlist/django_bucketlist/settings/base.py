@@ -131,7 +131,6 @@ BOWER_INSTALLED_APPS = (
 
 STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
 
-# BOWER_COMPONENTS_ROOT = BASE_DIR
 
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'static'),

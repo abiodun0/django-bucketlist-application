@@ -64,7 +64,7 @@ class IndexBaseView(IndexView):
             else:
                 messages.error(request, 'Username and password incorrect')
                 return redirect(
-                    '/',
+                    request.META.get('HTTP_REFERER'),
                     context_instance=RequestContext(request)
                 )
         else:
