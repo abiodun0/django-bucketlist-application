@@ -17,7 +17,7 @@ from django.contrib.messages import constants as message_constants
 BASE_DIR = os.path.dirname(
     os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
-PROJECT_DIR = os.path.dirname(__file__)
+PROJECT_ROOT = os.path.dirname(BASE_DIR)
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.8/howto/deployment/checklist/
@@ -41,7 +41,7 @@ MESSAGE_TAGS = {
 
 }
 
-BOWER_COMPONENTS_ROOT = os.path.join(BASE_DIR, '..', 'components')
+BOWER_COMPONENTS_ROOT = os.path.join(PROJECT_ROOT)
 # Application definition
 
 INSTALLED_APPS = (
@@ -76,7 +76,7 @@ ROOT_URLCONF = 'django_bucketlist.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': ['templates',os.path.join(PROJECT_DIR, "templates")],
+        'DIRS': [os.path.join(BASE_DIR, 'templates'), ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
