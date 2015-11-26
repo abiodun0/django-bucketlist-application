@@ -78,6 +78,7 @@ class BucketListView(APIView):
 
 
 class BucketListItemsView(APIView):
+    permission_classes = (IsAuthenticated,)
 
     def post(self, request, format=None, **kwargs):
         bucketlist_id = kwargs['id']
@@ -92,6 +93,7 @@ class BucketListItemsView(APIView):
 
 
 class BucketListItemView(APIView):
+    permission_classes = (IsAuthenticated,)
 
     def put(self, request, format=None, **kwargs):
         item_id = kwargs['item_id']

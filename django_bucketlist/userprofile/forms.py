@@ -3,6 +3,7 @@ from django.forms import ModelForm, Textarea, TextInput, RadioSelect
 
 from django.contrib.auth.models import User
 
+
 class ProfileForm(ModelForm):
     password = forms.CharField(max_length=100,
                                widget=forms.PasswordInput(attrs={
@@ -14,9 +15,10 @@ class ProfileForm(ModelForm):
                                         'placeholder': 'Verify secret password',
                                         'class': 'form-control input-lg',
                                     }), required=False)
+
     class Meta:
         model = User
-        fields = ['first_name','last_name','email',]
+        fields = ['first_name', 'last_name', 'email', ]
         widgets = {
             'first_name': TextInput(attrs={
                 'placeholder': 'Your Name',
@@ -31,11 +33,9 @@ class ProfileForm(ModelForm):
                 'placeholder': 'Last Name',
                 'autocomplete': 'off',
                 'class': 'form-control'
-                }),
+            }),
 
-            }
-
-
+        }
 
     def clean(self):
         if 'password' in self.cleaned_data and 'password_conf' in self.cleaned_data:
@@ -54,8 +54,6 @@ class ProfileForm(ModelForm):
         return user
 
 
-
-
 class LoginForm(forms.Form):
     username = forms.CharField(label='Username', max_length=100,
                                widget=forms.TextInput(attrs={
@@ -71,7 +69,6 @@ class LoginForm(forms.Form):
 
     remember_me = forms.BooleanField(
         label='Remember Me', required=False)
-
 
 
 class RegisterForm(forms.Form):
@@ -108,7 +105,6 @@ class RegisterForm(forms.Form):
                                         'placeholder': 'Verify secret password',
                                         'class': 'form-control input-lg',
                                     }))
-
 
     def clean_username(self):
         try:

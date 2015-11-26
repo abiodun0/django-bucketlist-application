@@ -95,7 +95,6 @@ class SignUpView(IndexBaseView):
                 context_instance=RequestContext(request)
             )
         else:
-            print form.errors
 
             context = super(SignUpView, self).get_context_data(**kwargs)
             context['form_errors'] = form.errors
