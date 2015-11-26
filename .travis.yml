@@ -30,5 +30,6 @@ deploy:
     - "python django_bucketlist/manage.py collectstatic --noinput"
     - "python django_bucketlist/manage.py makemigrations"
     - "python django_bucketlist/manage.py migrate"
+    - "python django_bucketlist/manage.py syncdb --noinput"
   after_deploy:
     - "heroku ps:scale web=1 --app django-bucketlist"
