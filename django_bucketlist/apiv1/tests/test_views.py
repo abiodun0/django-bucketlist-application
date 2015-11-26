@@ -7,7 +7,7 @@ from items.models import Item
 from rest_framework.authtoken.models import Token
 
 
-class APIViewTestCase(APITestCase):
+class ApiViewTest(APITestCase):
 
     def setUp(self):
         self.client = APIClient()

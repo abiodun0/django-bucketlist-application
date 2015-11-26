@@ -6,7 +6,7 @@ from bucketlists.models import BucketList
 from items.models import Item
 
 
-class BucketlistViewTest(TestCase):
+class BucketListViewTest(TestCase):
 
     def setUp(self):
         self.client = Client()
