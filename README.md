@@ -22,6 +22,9 @@ Bucketlist Tracker uses a number of open source projects to work properly:
 * [Django Rest Framework] - Django REST framework is a powerful and flexible toolkit for building Web APIs
 * [jQuery] - jQuery is a fast, small, and feature-rich JavaScript library
 
+### API Documentation
+Django REST framework with swagger was used to document the API which can be viewed [here](http://django-bucketlist.herokuapp.com/api/v1/docs/)
+
 
 ### Installation
 You can go to the website here and signup for an [here](http://django-bucketlist.herokuapp.com/)
@@ -47,8 +50,6 @@ $ python django_bucketlist/manage.py runserver --settings=settings.development
 
 To run the test
 ```bash
-$ python django_bucketlist/manage.py test django_bucketlist
+$ python django_bucketlist/manage.py test django_bucketlist```
 
 
-### API Documentation
-Django REST framework with swagger was used to document the API which can be viewed [here](http://django-bucketlist.herokuapp.com/api/v1/docs/)
