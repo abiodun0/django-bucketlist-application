@@ -18,7 +18,17 @@ from items.forms import ItemForm
 # Create your views here.
 
 
+def url_redirect(request):
+    url = request.META.get('HTTP_REFERER') if request.META.get(
+        'HTTP_REFERER') is not None else '/dashboard'
+    return redirect(
+        url,
+        context_instance=RequestContext(request)
+    )
+
+
 class IndexView(TemplateView):
+
     """The view for the home page url
     redirects to dashboard if user is already logged in"""
 
@@ -41,6 +51,7 @@ class LoginRequiredMixin(object):
 
 
 class IndexBaseView(IndexView):
+
     """view for the login and signup page"""
     template_name = 'index.html'
 
@@ -67,7 +78,7 @@ class IndexBaseView(IndexView):
                         context_instance=RequestContext(request)
                     )
             else:
-                #redirects with a flash message if user details is invalid 
+                # redirects with a flash message if user details is invalid
                 messages.error(request, 'Username and password incorrect')
                 return redirect(
                     request.META.get('HTTP_REFERER'),
@@ -80,6 +91,7 @@ class IndexBaseView(IndexView):
 
 
 class SignUpView(IndexBaseView):
+
     """signup page view"""
     template_name = 'signup.html'
 
@@ -110,6 +122,7 @@ class SignUpView(IndexBaseView):
 
 
 class DashboardView(LoginRequiredMixin, TemplateView):
+
     """Dashboard view for a particular user"""
     template_name = 'dashboard.html'
 
@@ -119,9 +132,9 @@ class DashboardView(LoginRequiredMixin, TemplateView):
         return context
 
     def get(self, request, **kwargs):
-        #paginated items for the bucketlist collections of a particular user
+        # paginated items for the bucketlist collections of a particular user
         page = request.GET.get('page')
-        q = request.GET.get('q',"")
+        q = request.GET.get('q', "")
         paginator = Paginator(
             request.user.bucketlists.filter(name__contains=q), 6)
         try:
@@ -133,7 +146,7 @@ class DashboardView(LoginRequiredMixin, TemplateView):
 
         context = {
             'bucketlists': bucketlists,
-            'search':q,
+            'search': q,
             'new_item': ItemForm(auto_id=False),
             'new_bucketlist': BucketListForm(auto_id=False)
         }
@@ -142,6 +155,7 @@ class DashboardView(LoginRequiredMixin, TemplateView):
 
 
 class ProfileView(LoginRequiredMixin, TemplateView):
+
     """profile editing view"""
     template_name = 'profile.html'
     form_class = ProfileForm
@@ -161,10 +175,7 @@ class ProfileView(LoginRequiredMixin, TemplateView):
             form.save()
             messages.success(request, 'Profile updated')
 
-            return redirect(
-                request.META.get('HTTP_REFERER'),
-                context_instance=RequestContext(request)
-            )
+            return url_redirect(request)
         else:
             messages.error(
                 request, 'There was an error with the fields you entered')

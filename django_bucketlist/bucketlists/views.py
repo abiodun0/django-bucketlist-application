@@ -13,7 +13,10 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from bucketlists.models import BucketList
 from bucketlists.forms import BucketListForm
 from items.forms import ItemForm
-from userprofile.views import DashboardView
+from userprofile.views import DashboardView, url_redirect
+
+
+
 
 
 class BucketListView(DashboardView):
@@ -25,11 +28,8 @@ class BucketListView(DashboardView):
         bucketlist.owner = request.user
         bucketlist.save()
         messages.success(request, bucketlist.name + ' Successfully created')
-        url = request.META.get('HTTP_REFERER') if request.META.get('HTTP_REFERER') is not None else '/dashboard'
-        return redirect(
-            url,
-            context_instance=RequestContext(request)
-        )
+        return url_redirect(request)
+        
 
 
 class BucketListEditView(TemplateView):
@@ -66,11 +66,7 @@ class BucketListEditView(TemplateView):
 
         bucketlist.save()
         messages.success(request, bucketlist.name + ' updated')
-        url = request.META.get('HTTP_REFERER') if request.META.get('HTTP_REFERER') is not None else '/dashboard'
-        return redirect(
-            url,
-            context_instance=RequestContext(request)
-        )
+        return url_redirect(request)
 
 
 class BucketListAddItemView(TemplateView):
@@ -85,11 +81,7 @@ class BucketListAddItemView(TemplateView):
         item.done = False
         item.save()
         messages.success(request, item.name + ' Added to ' + bucketlist.name)
-        return redirect(
-            request.META.get('HTTP_REFERER'),
-            context_instance=RequestContext(request)
-        )
-
+        return url_redirect(request)
 
 class BucketListDeleteView(TemplateView):
     """ Deletes a bucketlist item """
@@ -99,8 +91,4 @@ class BucketListDeleteView(TemplateView):
         bucketlist = BucketList.objects.filter(id=bucketlist_id).first()
         bucketlist.delete()
         messages.success(request, 'Successfully Deleted')
-        url = request.META.get('HTTP_REFERER') if request.META.get('HTTP_REFERER') is not None else '/dashboard'
-        return redirect(
-            url,
-            context_instance=RequestContext(request)
-        )
+        return url_redirect(request)

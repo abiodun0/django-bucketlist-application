@@ -6,6 +6,7 @@ from django.contrib import messages
 from django.views.generic import View
 
 from .models import Item
+from userprofile.views import url_redirect
 
 # Create your views here.
 
@@ -18,11 +19,7 @@ class ItemDeleteView(View):
         item = Item.objects.filter(id=item_id).first()
         item.delete()
         messages.success(request, 'Successfully deleted')
-        url = request.META.get('HTTP_REFERER') if request.META.get('HTTP_REFERER') is not None else '/dashboard'
-        return redirect(
-            url,
-            context_instance=RequestContext(request)
-        )
+        return url_redirect(request)
 
 
 class ItemDoneView(View):
@@ -40,11 +37,7 @@ class ItemDoneView(View):
             messages.success(request, item.name + ' Marked as done')
 
         item.save()
-        url = request.META.get('HTTP_REFERER') if request.META.get('HTTP_REFERER') is not None else '/dashboard'
-        return redirect(
-            url,
-            context_instance=RequestContext(request)
-        )
+        return url_redirect(request)
 
 
 class ItemEditView(View):
@@ -57,8 +50,4 @@ class ItemEditView(View):
         item.description = request.POST['description']
         item.save()
         messages.success(request, item.name + ' Successfully updated')
-        url = request.META.get('HTTP_REFERER') if request.META.get('HTTP_REFERER') is not None else '/dashboard'
-        return redirect(
-            url,
-            context_instance=RequestContext(request)
-        )
+        return url_redirect(request)

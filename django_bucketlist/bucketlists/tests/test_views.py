@@ -49,3 +49,19 @@ class BucketListViewTest(TestCase):
         url = reverse('bucketlists')
         response = self.client.post(url,data=data)
         self.assertEqual(response.status_code, 302)
+
+    def test_user_can_edit_bucketlist_collections(self):
+        data = {'name':'abiodun','description':'olx','color':'blue'}
+        url = reverse('edit_bucketlist',kwargs={'id':self.bucketlist.id})
+        response = self.client.post(url,data=data)
+        self.assertEqual(response.status_code, 302)
+
+    def test_user_can_add_item_to_bucketlist(self):
+        data = {'name':'abiodun','description':'olx'}
+        url = reverse('add_item',kwargs={'id':self.bucketlist.id})
+        response = self.client.post(url,data=data)
+        self.assertEqual(response.status_code, 302)
+    def test_user_can_deletebucketlist(self):
+        url = reverse('delete_bucketlist',kwargs={'id':self.bucketlist.id})
+        response = self.client.post(url)
+        self.assertEqual(response.status_code, 302)
