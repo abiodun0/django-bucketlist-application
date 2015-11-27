@@ -53,6 +53,7 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'rest_framework',
     'rest_framework.authtoken',
+    'rest_framework_swagger',
     'apiv1',
     'djangobower',
     'bucketlists',
@@ -122,6 +123,10 @@ USE_L10N = True
 
 USE_TZ = True
 
+SWAGGER_SETTINGS = {
+    'exclude_namespaces': [],
+    'api_version': '0.0.1',
+}
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.8/howto/static-files/

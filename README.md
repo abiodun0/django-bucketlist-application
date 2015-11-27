@@ -26,12 +26,12 @@ Bucketlist Tracker uses a number of open source projects to work properly:
 ### Installation
 You can go to the website here and signup for an [here](http://django-bucketlist.herokuapp.com/)
 
-if you wish to run it locallly donwload python environment from [here](https://www.python.org/downloads/)
+if you wish to run it locally donwload python environment from [here](https://www.python.org/downloads/)
 
 After you're done installing python, run these following command in your terminal.
 ```bash
-$ git clone [git-repo-url] dpba
-$ cd dpba
+$ git clone [git@github.com:andela-ashuaib/django-bucketlist.git] bucketlist
+$ cd bucketlist
 $ pip install -r requirements.txt
 ```
 
@@ -48,3 +48,7 @@ $ python django_bucketlist/manage.py runserver --settings=settings.development
 To run the test
 ```bash
 $ python django_bucketlist/manage.py test django_bucketlist
+
+
+### API Documentation
+Django REST framework with swagger was used to document the API which can be viewed [here](http://django-bucketlist.herokuapp.com/api/v1/docs/)
