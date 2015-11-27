@@ -1,13 +1,13 @@
-from django.shortcuts import render, redirect
-from django.views.generic import View, TemplateView
-from django.template import RequestContext, loader
+from django.shortcuts import redirect
+from django.template import RequestContext
 from django.contrib import messages
+from django.views.generic import View
 
 from .models import Item
 
 # Create your views here.
 
-        
+
 class ItemDeleteView(View):
 
     def post(self, request, **kwargs):
@@ -16,11 +16,13 @@ class ItemDeleteView(View):
         item.delete()
         messages.success(request, 'Successfully deleted')
         return redirect(
-            request.META.get('HTTP_REFERER'),
+            '/',
             context_instance=RequestContext(request)
-            )
+        )
+
 
 class ItemDoneView(View):
+
     def post(self, request, **kwargs):
         item_id = kwargs['id']
         item = Item.objects.filter(id=item_id).first()
@@ -36,7 +38,7 @@ class ItemDoneView(View):
         return redirect(
             request.META.get('HTTP_REFERER'),
             context_instance=RequestContext(request)
-            )
+        )
 
 
 class ItemEditView(View):
@@ -51,4 +53,4 @@ class ItemEditView(View):
         return redirect(
             request.META.get('HTTP_REFERER'),
             context_instance=RequestContext(request)
-            )
+        )

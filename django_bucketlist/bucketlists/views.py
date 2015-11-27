@@ -7,7 +7,7 @@ from django.contrib import messages
 from django.template import RequestContext, loader
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
-from userprofile.forms import RegisterForm, LoginForm
+
 from bucketlists.models import BucketList
 from bucketlists.forms import BucketListForm
 from items.forms import ItemForm

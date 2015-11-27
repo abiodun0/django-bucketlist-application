@@ -31,21 +31,7 @@ class BucketListViewTest(TestCase):
         BucketList.objects.all().delete()
         Item.objects.all().delete()
 
-    def test_can_reach_bucketlist_page(self):
-        response = self.client.get(
-            reverse('edit_bucketlist', kwargs={'id': self.bucketlist.id}))
-        self.assertEqual(response.status_code, 200)
-
-    def test_can_reach_max_page(self):
-        response = self.client.get(
-            reverse('edit_bucketlist', kwargs={'id': self.bucketlist.id}) + '?page=200')
-
-        self.assertEqual(response.status_code, 200)
-
-    def test_can_create_bucketlist(self):
-        data = {'name':'abiodun','description':'olx','color':'blue'}
-        url = reverse('bucketlists')
-        print url
-        print dict(data)
-        response = self.client.post(url,dict(data))
+    def test_item_can_be_done(self):
+        response = self.client.post(
+            reverse('item_done', kwargs={'id': self.item.id}))
         self.assertEqual(response.status_code, 302)
