@@ -13,7 +13,7 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from bucketlists.models import BucketList
 from bucketlists.forms import BucketListForm
 from items.forms import ItemForm
-from userprofile.views import DashboardView, url_redirect
+from userprofile.views import DashboardView, url_redirect,LoginRequiredMixin
 
 
 class BucketListView(DashboardView):
@@ -29,7 +29,7 @@ class BucketListView(DashboardView):
         return url_redirect(request)
 
 
-class BucketListEditView(TemplateView):
+class BucketListEditView(LoginRequiredMixin,TemplateView):
 
     """Edits a particular bucketlist"""
     template_name = 'bucketlist.html'
@@ -67,7 +67,7 @@ class BucketListEditView(TemplateView):
         return url_redirect(request)
 
 
-class BucketListAddItemView(TemplateView):
+class BucketListAddItemView(LoginRequiredMixin, TemplateView):
 
     """Adds an item to a bucketlist collection"""
 
@@ -83,7 +83,7 @@ class BucketListAddItemView(TemplateView):
         return url_redirect(request)
 
 
-class BucketListDeleteView(TemplateView):
+class BucketListDeleteView(LoginRequiredMixin, TemplateView):
 
     """ Deletes a bucketlist item """
 

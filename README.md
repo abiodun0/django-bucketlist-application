@@ -9,6 +9,9 @@ It comes with the following features:
   - Full tests
   - Responsive Design
   - Exposed API endpoints
+  - Pagination
+  - Search
+  - User can edit profile information
 
 
 

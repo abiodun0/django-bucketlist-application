@@ -6,12 +6,12 @@ from django.contrib import messages
 from django.views.generic import View
 
 from .models import Item
-from userprofile.views import url_redirect
+from userprofile.views import url_redirect,LoginRequiredMixin
 
 # Create your views here.
 
 
-class ItemDeleteView(View):
+class ItemDeleteView(LoginRequiredMixin,View):
 
     """This deletes the item"""
 
@@ -23,7 +23,7 @@ class ItemDeleteView(View):
         return url_redirect(request)
 
 
-class ItemDoneView(View):
+class ItemDoneView(LoginRequiredMixin,View):
 
     """marks a bucketlist item as done or not done"""
 
@@ -42,7 +42,7 @@ class ItemDoneView(View):
         return url_redirect(request)
 
 
-class ItemEditView(View):
+class ItemEditView(LoginRequiredMixin,View):
 
     """Edits the description and name of an item"""
 
