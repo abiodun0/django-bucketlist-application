@@ -80,10 +80,7 @@ class IndexBaseView(IndexView):
             else:
                 # redirects with a flash message if user details is invalid
                 messages.error(request, 'Username and password incorrect')
-                return redirect(
-                    request.META.get('HTTP_REFERER'),
-                    context_instance=RequestContext(request)
-                )
+                return url_redirect(request)
         else:
             context = super(IndexBaseView, self).get_context_data(**kwargs)
             context['loginform'] = form
@@ -126,10 +123,6 @@ class DashboardView(LoginRequiredMixin, TemplateView):
     """Dashboard view for a particular user"""
     template_name = 'dashboard.html'
 
-    def get_context_data(self, **kwargs):
-        context = super(DashboardView, self).get_context_data(**kwargs)
-        context['new_item'] = ItemForm(auto_id=False)
-        return context
 
     def get(self, request, **kwargs):
         # paginated items for the bucketlist collections of a particular user

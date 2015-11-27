@@ -31,7 +31,22 @@ class BucketListViewTest(TestCase):
         BucketList.objects.all().delete()
         Item.objects.all().delete()
 
-    def test_item_can_be_done(self):
+    def test_item_can_be_done_or_undone(self):
         response = self.client.post(
             reverse('item_done', kwargs={'id': self.item.id}))
+        response2 = self.client.post(
+            reverse('item_done', kwargs={'id': self.item.id}))
+        self.assertEqual(response.status_code, 302)
+        self.assertEqual(response2.status_code, 302)
+
+    def test_item_can_be_deleted(self):
+        response = self.client.post(
+            reverse('item_delete', kwargs={'id': self.item.id}))
+        
+        self.assertEqual(response.status_code, 302)
+
+    def test_item_can_be_edited(self):
+        response = self.client.post(
+            reverse('item_edit', kwargs={'id': self.item.id}),{'name':'edited item','description':'edited description'})
+        
         self.assertEqual(response.status_code, 302)
