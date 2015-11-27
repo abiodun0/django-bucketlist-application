@@ -47,7 +47,5 @@ class BucketListViewTest(TestCase):
     def test_can_create_bucketlist(self):
         data = {'name':'abiodun','description':'olx','color':'blue'}
         url = reverse('bucketlists')
-        print url
-        print dict(data)
-        response = self.client.post(url,dict(data))
+        response = self.client.post(url,data=data)
         self.assertEqual(response.status_code, 302)

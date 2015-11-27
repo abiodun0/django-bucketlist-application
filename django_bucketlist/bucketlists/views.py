@@ -19,16 +19,15 @@ from userprofile.views import DashboardView
 class BucketListView(DashboardView):
 
     """Creates a new bucketlist"""
-    template_name = 'bucketlist.html'
-
     def post(self, request, **kwargs):
         form = BucketListForm(request.POST)
         bucketlist = form.save(commit=False)
         bucketlist.owner = request.user
         bucketlist.save()
         messages.success(request, bucketlist.name + ' Successfully created')
+        url = request.META.get('HTTP_REFERER') if request.META.get('HTTP_REFERER') is not None else '/dashboard'
         return redirect(
-            request.META.get('HTTP_REFERER'),
+            url,
             context_instance=RequestContext(request)
         )
 
@@ -67,8 +66,9 @@ class BucketListEditView(TemplateView):
 
         bucketlist.save()
         messages.success(request, bucketlist.name + ' updated')
+        url = request.META.get('HTTP_REFERER') if request.META.get('HTTP_REFERER') is not None else '/dashboard'
         return redirect(
-            request.META.get('HTTP_REFERER'),
+            url,
             context_instance=RequestContext(request)
         )
 
@@ -99,7 +99,8 @@ class BucketListDeleteView(TemplateView):
         bucketlist = BucketList.objects.filter(id=bucketlist_id).first()
         bucketlist.delete()
         messages.success(request, 'Successfully Deleted')
+        url = request.META.get('HTTP_REFERER') if request.META.get('HTTP_REFERER') is not None else '/dashboard'
         return redirect(
-            request.META.get('HTTP_REFERER'),
+            url,
             context_instance=RequestContext(request)
         )
