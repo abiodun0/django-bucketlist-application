@@ -9,7 +9,6 @@ from bucketlists.models import BucketList
 from items.models import Item
 
 
-
 class UserViewTestCase(TestCase):
 
     def setUp(self):
@@ -53,38 +52,42 @@ class UserViewTestCase(TestCase):
 
     def test_user_can_login(self):
         self.client.logout()
-        data = {'username':'test','password':'test'}
+        data = {'username': 'test', 'password': 'test'}
         url = reverse('index')
-        response = self.client.post(url,data=data)
+        response = self.client.post(url, data=data)
         self.assertEqual(response.status_code, 302)
 
     def test_user_can_not_login_with_wrong_details(self):
         self.client.logout()
-        data = {'username':'test','password':'testa'}
+        data = {'username': 'test', 'password': 'testa'}
         url = reverse('index')
-        response = self.client.post(url,data=data)
+        response = self.client.post(url, data=data)
         self.assertEqual(response.status_code, 302)
 
     def test_user_cant_login_with_wrong_validation(self):
         self.client.logout()
-        data = {'username_one':'test','passworda':'testa'}
+        data = {'username_one': 'test', 'passworda': 'testa'}
         url = reverse('index')
-        response = self.client.post(url,data=data)
+        response = self.client.post(url, data=data)
         self.assertEqual(response.status_code, 200)
 
     def test_user_can_not_signup_with_the_same_username(self):
         self.client.logout()
-        data = {'username':'test','password':'testa','email':'abb@yahoo.com','first_name':'abbbey','last_name':'kidna'}
-        data2 = {'username':'test','password':'testa','password_conf':'test','email':'abb@yahoo.com','first_name':'abbbey','last_name':'kidna'}
+        data = {'username': 'test', 'password': 'testa', 'email':
+                'abb@yahoo.com', 'first_name': 'abbbey', 'last_name': 'kidna'}
+        data2 = {'username': 'test', 'password': 'testa', 'password_conf': 'test',
+                 'email': 'abb@yahoo.com', 'first_name': 'abbbey', 'last_name': 'kidna'}
         url = reverse('signup')
-        response = self.client.post(url,data=data)
-        response2 = self.client.post(url,data=data2)
+        response = self.client.post(url, data=data)
+        response2 = self.client.post(url, data=data2)
         self.assertEqual(response.status_code, 200)
+
     def test_user_can_sign_up(self):
         self.client.logout()
-        data = {'username':'testa','password':'testa','password_conf':'testa','email':'abbb@yahoo.com','first_name':'abbbey','last_name':'kidna'}
+        data = {'username': 'testa', 'password': 'testa', 'password_conf': 'testa',
+                'email': 'abbb@yahoo.com', 'first_name': 'abbbey', 'last_name': 'kidna'}
         url = reverse('signup')
-        response = self.client.post(url,data=data)
+        response = self.client.post(url, data=data)
         self.assertEqual(response.status_code, 302)
 
     def test_user_can_reach_dashboard(self):
@@ -100,23 +103,18 @@ class UserViewTestCase(TestCase):
         self.assertEqual(response.status_code, 200)
 
     def test_user_can_not__edit_profile_with_wrong_details(self):
-        data = {'password':'testa','email':'abb@yahoo.com','first_name':'abbbey','last_name':'kidna'}
-        data2 = {'password':'testa','password_conf':'test','email':'abb@yahoo.com','first_name':'abbbey','last_name':'kidna'}
+        data = {'password': 'testa', 'email': 'abb@yahoo.com',
+                'first_name': 'abbbey', 'last_name': 'kidna'}
+        data2 = {'password': 'testa', 'password_conf': 'test', 'email':
+                 'abb@yahoo.com', 'first_name': 'abbbey', 'last_name': 'kidna'}
         url = reverse('profile')
-        response = self.client.post(url,data)
-        response2 = self.client.post(url,data2)
+        response = self.client.post(url, data)
+        response2 = self.client.post(url, data2)
         self.assertEqual(response.status_code, 200)
 
-
     def test_user_can_eidt_profile(self):
-        data = {'password':'testa','password_conf':'testa','email':'abb@yahoo.com','first_name':'abbbey','last_name':'kidna'}
+        data = {'password': 'testa', 'password_conf': 'testa', 'email':
+                'abb@yahoo.com', 'first_name': 'abbbey', 'last_name': 'kidna'}
         url = reverse('profile')
-        response = self.client.post(url,data=data)
+        response = self.client.post(url, data=data)
         self.assertEqual(response.status_code, 302)
-
-
-
-
-
-
-

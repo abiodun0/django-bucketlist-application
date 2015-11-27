@@ -5,6 +5,7 @@ from django.contrib.auth.models import User
 
 
 class ProfileForm(ModelForm):
+
     """user profile edit forms"""
     password = forms.CharField(max_length=100,
                                widget=forms.PasswordInput(attrs={

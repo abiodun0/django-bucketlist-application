@@ -16,12 +16,10 @@ from items.forms import ItemForm
 from userprofile.views import DashboardView, url_redirect
 
 
-
-
-
 class BucketListView(DashboardView):
 
     """Creates a new bucketlist"""
+
     def post(self, request, **kwargs):
         form = BucketListForm(request.POST)
         bucketlist = form.save(commit=False)
@@ -29,15 +27,15 @@ class BucketListView(DashboardView):
         bucketlist.save()
         messages.success(request, bucketlist.name + ' Successfully created')
         return url_redirect(request)
-        
 
 
 class BucketListEditView(TemplateView):
+
     """Edits a particular bucketlist"""
     template_name = 'bucketlist.html'
 
     def get(self, request, **kwargs):
-        #Gets all the item for a particular bucketlist
+        # Gets all the item for a particular bucketlist
         bucketlist_id = kwargs['id']
         page = request.GET.get('page')
         q = request.GET.get('q', "")
@@ -56,7 +54,7 @@ class BucketListEditView(TemplateView):
         return render(request, self.template_name, context)
 
     def post(self, request, **kwargs):
-        #edits the bucketlist name , description or theme
+        # edits the bucketlist name , description or theme
         bucketlist_id = kwargs['id']
         bucketlist = BucketList.objects.filter(id=bucketlist_id).first()
         bucketlist.name = request.POST['name']
@@ -70,6 +68,7 @@ class BucketListEditView(TemplateView):
 
 
 class BucketListAddItemView(TemplateView):
+
     """Adds an item to a bucketlist collection"""
 
     def post(self, request, **kwargs):
@@ -83,7 +82,9 @@ class BucketListAddItemView(TemplateView):
         messages.success(request, item.name + ' Added to ' + bucketlist.name)
         return url_redirect(request)
 
+
 class BucketListDeleteView(TemplateView):
+
     """ Deletes a bucketlist item """
 
     def post(self, request, **kwargs):

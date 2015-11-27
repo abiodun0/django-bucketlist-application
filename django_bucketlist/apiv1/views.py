@@ -55,6 +55,7 @@ class BucketLists(APIView):
 
 
 class BucketListView(APIView):
+
     """ Bucketlist resource"""
     permission_classes = (IsAuthenticated,)
 
@@ -85,6 +86,7 @@ class BucketListView(APIView):
 
 
 class BucketListItemsView(APIView):
+
     """ Creates a new Bucketlist Item"""
     permission_classes = (IsAuthenticated,)
 
@@ -101,6 +103,7 @@ class BucketListItemsView(APIView):
 
 
 class BucketListItemView(APIView):
+
     """ Bucketlist Item resource"""
     permission_classes = (IsAuthenticated,)
 

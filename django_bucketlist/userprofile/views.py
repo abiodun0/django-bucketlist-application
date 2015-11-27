@@ -123,7 +123,6 @@ class DashboardView(LoginRequiredMixin, TemplateView):
     """Dashboard view for a particular user"""
     template_name = 'dashboard.html'
 
-
     def get(self, request, **kwargs):
         # paginated items for the bucketlist collections of a particular user
         page = request.GET.get('page')

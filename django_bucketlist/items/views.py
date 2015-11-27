@@ -12,6 +12,7 @@ from userprofile.views import url_redirect
 
 
 class ItemDeleteView(View):
+
     """This deletes the item"""
 
     def post(self, request, **kwargs):
@@ -23,6 +24,7 @@ class ItemDeleteView(View):
 
 
 class ItemDoneView(View):
+
     """marks a bucketlist item as done or not done"""
 
     def post(self, request, **kwargs):
@@ -41,6 +43,7 @@ class ItemDoneView(View):
 
 
 class ItemEditView(View):
+
     """Edits the description and name of an item"""
 
     def post(self, request, **kwargs):
