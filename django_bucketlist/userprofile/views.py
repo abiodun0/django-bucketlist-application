@@ -1,3 +1,5 @@
+"""The view that handles the user details"""
+
 from django.contrib.auth.decorators import login_required
 
 from django.utils.decorators import method_decorator
@@ -17,6 +19,8 @@ from items.forms import ItemForm
 
 
 class IndexView(TemplateView):
+    """The view for the home page url
+    redirects to dashboard if user is already logged in"""
 
     def dispatch(self, request, *args, **kwargs):
         if request.user.is_authenticated():
@@ -37,6 +41,7 @@ class LoginRequiredMixin(object):
 
 
 class IndexBaseView(IndexView):
+    """view for the login and signup page"""
     template_name = 'index.html'
 
     def get_context_data(self, **kwargs):
@@ -62,6 +67,7 @@ class IndexBaseView(IndexView):
                         context_instance=RequestContext(request)
                     )
             else:
+                #redirects with a flash message if user details is invalid 
                 messages.error(request, 'Username and password incorrect')
                 return redirect(
                     request.META.get('HTTP_REFERER'),
@@ -74,6 +80,7 @@ class IndexBaseView(IndexView):
 
 
 class SignUpView(IndexBaseView):
+    """signup page view"""
     template_name = 'signup.html'
 
     def get_context_data(self, **kwargs):
@@ -103,6 +110,7 @@ class SignUpView(IndexBaseView):
 
 
 class DashboardView(LoginRequiredMixin, TemplateView):
+    """Dashboard view for a particular user"""
     template_name = 'dashboard.html'
 
     def get_context_data(self, **kwargs):
@@ -111,6 +119,7 @@ class DashboardView(LoginRequiredMixin, TemplateView):
         return context
 
     def get(self, request, **kwargs):
+        #paginated items for the bucketlist collections of a particular user
         page = request.GET.get('page')
         q = request.GET.get('q',"")
         paginator = Paginator(
@@ -133,6 +142,7 @@ class DashboardView(LoginRequiredMixin, TemplateView):
 
 
 class ProfileView(LoginRequiredMixin, TemplateView):
+    """profile editing view"""
     template_name = 'profile.html'
     form_class = ProfileForm
 

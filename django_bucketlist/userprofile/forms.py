@@ -5,6 +5,7 @@ from django.contrib.auth.models import User
 
 
 class ProfileForm(ModelForm):
+    """user profile edit forms"""
     password = forms.CharField(max_length=100,
                                widget=forms.PasswordInput(attrs={
                                    'placeholder': 'Create secret password',
@@ -38,6 +39,7 @@ class ProfileForm(ModelForm):
         }
 
     def clean(self):
+        """Checks if the password confirmation is the same as the password entered"""
         if 'password' in self.cleaned_data and 'password_conf' in self.cleaned_data:
             if self.cleaned_data['password'] != self.cleaned_data['password_conf']:
                 raise forms.ValidationError(
@@ -45,6 +47,7 @@ class ProfileForm(ModelForm):
         return self.cleaned_data
 
     def save(self, commit=True):
+        """overriden save method of the form class"""
         user = super(ProfileForm, self).save(commit=False)
         password = self.cleaned_data["password"]
         if password:

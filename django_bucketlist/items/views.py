@@ -1,3 +1,5 @@
+"""This handles the Bucketlist Item Actions"""
+
 from django.shortcuts import redirect
 from django.template import RequestContext
 from django.contrib import messages
@@ -9,6 +11,7 @@ from .models import Item
 
 
 class ItemDeleteView(View):
+    """This deletes the item"""
 
     def post(self, request, **kwargs):
         item_id = kwargs['id']
@@ -22,6 +25,7 @@ class ItemDeleteView(View):
 
 
 class ItemDoneView(View):
+    """marks a bucketlist item as done or not done"""
 
     def post(self, request, **kwargs):
         item_id = kwargs['id']
@@ -42,6 +46,7 @@ class ItemDoneView(View):
 
 
 class ItemEditView(View):
+    """Edits the description and name of an item"""
 
     def post(self, request, **kwargs):
         item_id = kwargs['id']

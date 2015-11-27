@@ -1,3 +1,5 @@
+"""The bucketlist collection Action views"""
+
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 from django.views.generic import View, TemplateView
@@ -15,6 +17,8 @@ from userprofile.views import DashboardView
 
 
 class BucketListView(DashboardView):
+
+    """Creates a new bucketlist"""
     template_name = 'bucketlist.html'
 
     def post(self, request, **kwargs):
@@ -30,9 +34,11 @@ class BucketListView(DashboardView):
 
 
 class BucketListEditView(TemplateView):
+    """Edits a particular bucketlist"""
     template_name = 'bucketlist.html'
 
     def get(self, request, **kwargs):
+        #Gets all the item for a particular bucketlist
         bucketlist_id = kwargs['id']
         page = request.GET.get('page')
         q = request.GET.get('q', "")
@@ -51,6 +57,7 @@ class BucketListEditView(TemplateView):
         return render(request, self.template_name, context)
 
     def post(self, request, **kwargs):
+        #edits the bucketlist name , description or theme
         bucketlist_id = kwargs['id']
         bucketlist = BucketList.objects.filter(id=bucketlist_id).first()
         bucketlist.name = request.POST['name']
@@ -67,6 +74,7 @@ class BucketListEditView(TemplateView):
 
 
 class BucketListAddItemView(TemplateView):
+    """Adds an item to a bucketlist collection"""
 
     def post(self, request, **kwargs):
         bucketlist_id = kwargs['id']
@@ -84,6 +92,7 @@ class BucketListAddItemView(TemplateView):
 
 
 class BucketListDeleteView(TemplateView):
+    """ Deletes a bucketlist item """
 
     def post(self, request, **kwargs):
         bucketlist_id = kwargs['id']

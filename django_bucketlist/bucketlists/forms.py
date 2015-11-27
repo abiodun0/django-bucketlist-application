@@ -4,16 +4,17 @@ from .models import BucketList
 
 
 class BucketListForm(ModelForm):
+
     def __init__(self, *args, **kwargs):
-        
+
         super(BucketListForm, self).__init__(*args, **kwargs)
-        # there's a `fields` property now
+        # the color field set to false
         self.fields['color'].required = False
 
-
     class Meta:
+        # this handles the theme selection of the bucketlist collection
         COLORS = [('success', 'green'), ('default', 'gray'),
-              ('primary', 'blue'), ('warning', 'yellow'), ('danger', 'red'),('info','light-blue')]
+                  ('primary', 'blue'), ('warning', 'yellow'), ('danger', 'red'), ('info', 'light-blue')]
         model = BucketList
         fields = ['name', 'description', 'color']
         widgets = {
@@ -24,5 +25,5 @@ class BucketListForm(ModelForm):
                 'class': 'form-control'
             }),
 
-            'color': RadioSelect(choices=COLORS,attrs={'class':'radio-inline',}),
+            'color': RadioSelect(choices=COLORS, attrs={'class': 'radio-inline', }),
         }
