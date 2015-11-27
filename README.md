@@ -47,9 +47,11 @@ $ echo 'SECRET_KEY="whatever-you-wish-this-to-be"'
 Finally, run your build
 ```bash
 $ python django_bucketlist/manage.py runserver --settings=settings.development
+```
 
 To run the test
 ```bash
-$ python django_bucketlist/manage.py test django_bucketlist```
+$ python django_bucketlist/manage.py test django_bucketlist
+```
 
 
