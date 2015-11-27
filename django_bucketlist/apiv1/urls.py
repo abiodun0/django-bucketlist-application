@@ -8,9 +8,9 @@ urlpatterns = [
     url(r'^bucketlists/$', views.BucketLists.as_view(), name="api_bucketlist"),
     url(r'^bucketlist/(?P<id>[0-9]+)/$',
         views.BucketListView.as_view(), name="api_edit_bucketlist"),
-    url(r'^bucketlist_items/(?P<id>[0-9]+)/items/$',
+    url(r'^bucketlist/(?P<id>[0-9]+)/items/$',
         views.BucketListItemsView.as_view(), name="api_bucketlist_items"),
-    url(r'^bucketlist_items/(?P<id>[0-9]+)/items/(?P<item_id>[0-9]+)/$',
+    url(r'^bucketlist/(?P<id>[0-9]+)/items/(?P<item_id>[0-9]+)/$',
         views.BucketListItemView.as_view(), name="api_edit_bucketlist_items"),
     url(r'^docs/', include('rest_framework_swagger.urls')),
 
