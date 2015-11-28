@@ -30,9 +30,9 @@ Django REST framework with swagger was used to document the API which can be vie
 
 
 ### Installation
-You can go to the website here and signup for an [here](http://django-bucketlist.herokuapp.com/)
+You can go to the website and signup for an accout [here](http://django-bucketlist.herokuapp.com/)
 
-if you wish to run it locally donwload python environment from [here](https://www.python.org/downloads/)
+if you wish to run it locally donwload python environment from [python official website](https://www.python.org/downloads/)
 
 After you're done installing python, run these following command in your terminal.
 ```bash
@@ -44,7 +44,7 @@ $ pip install -r requirements.txt
 Next, setup environment your secret key
 ```bash
 $ touch .env.yml
-$ echo 'SECRET_KEY="whatever-you-wish-this-to-be"'
+$ echo 'SECRET_KEY="your secret keey"'
 ```
 
 Finally, run your build
