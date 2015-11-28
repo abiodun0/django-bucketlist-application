@@ -1,6 +1,8 @@
 {% extends "base/layout.html" %} {% block content %} {% include 'partials/navbar.html' %}
 <div class="page-header text-center">
-    <h1>{{bucketlist.name}}<br> <small>{{bucketlist.description}}</small></h1> <a class="btn btn-{{bucketlist.color}} btn-sm bucket-link" data-toggle="modal" data-target="#ItemModal" data-placement="top" title="Add more items to {{bucketlist.name}}" data-action="{% url 'add_item' id=bucketlist.id %}"><span class="glyphicon glyphicon-plus"></span></a>
+    <h1>{{bucketlist.name}}</h1>
+    <h2><small>{{bucketlist.description}}</small></h2> 
+    <a class="btn btn-{{bucketlist.color}} btn-sm bucket-link" data-toggle="modal" data-target="#ItemModal" data-placement="top" title="Add more items to {{bucketlist.name}}" data-action="{% url 'add_item' id=bucketlist.id %}"><span class="glyphicon glyphicon-plus"></span></a>
     <div class="container">
         <div class="row">
             <div class="col-sm-4 col-sm-offset-4">

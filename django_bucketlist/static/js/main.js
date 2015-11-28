@@ -9,7 +9,9 @@ $(document).ready(function() {
 
     }).click(function(e) {
         e.preventDefault();
-        var bucketlist_name = $(this).closest('.panel').find('.panel-heading').text();
+        var bucketListName = $(this).closest('.page-header').find('h1').text()
+        var dashboardBucketListName = $(this).closest('.panel').find('.panel-heading').text();
+        var bucketlist_name =  dashboardBucketListName.length > 0 ? dashboardBucketListName: bucketListName;
         $("#itemModal").modal("show");
         var url = $(this).data('action')
         $("#itemModal").find('.modal-title').text("Add new item to " + bucketlist_name);
