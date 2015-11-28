@@ -157,12 +157,14 @@ class ProfileView(LoginRequiredMixin, TemplateView):
         context['profileform'] = self.form_class(initial={
             'first_name': self.request.user.first_name,
             'last_name': self.request.user.last_name,
-            'email': self.request.user.email
+            'email': self.request.user.email,
+            'username': self.request.user.username
         })
         return context
 
     def post(self, request, **kwargs):
         form = self.form_class(data=request.POST, instance=request.user)
+        print form
         if form.is_valid():
             form.save()
             messages.success(request, 'Profile updated')
@@ -176,6 +178,7 @@ class ProfileView(LoginRequiredMixin, TemplateView):
             context['profileform'] = self.form_class(initial={
                 'first_name': self.request.user.first_name,
                 'last_name': self.request.user.last_name,
-                'email': self.request.user.email
+                'email': self.request.user.email,
+                'username': self.request.user.username
             })
             return render(request, self.template_name, context)

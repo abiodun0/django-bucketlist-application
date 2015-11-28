@@ -78,6 +78,7 @@
                         <div class="panel-body">
                         <form class="form-horizontal" action="{% url 'profile' %}" style="padding:10px" method="post">
                         {% csrf_token %}
+                        {{profileform.username.as_hidden}}
                             
                             <div class="form-group">
                             <lable> First Name</lable>
@@ -111,6 +112,7 @@
                         <div class="panel-body">
                         <form class="form-horizontal" action="{% url 'profile' %}" method="post" style="padding:10px">
                         {% csrf_token %}
+                        {{profileform.username.as_hidden}}
                         {{profileform.first_name.as_hidden}}
 
                         {{profileform.last_name.as_hidden}}
