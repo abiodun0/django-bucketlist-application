@@ -164,7 +164,6 @@ class ProfileView(LoginRequiredMixin, TemplateView):
 
     def post(self, request, **kwargs):
         form = self.form_class(data=request.POST, instance=request.user)
-        print form
         if form.is_valid():
             form.save()
             messages.success(request, 'Profile updated')

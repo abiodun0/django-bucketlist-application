@@ -127,7 +127,7 @@ class UserViewTestCase(TestCase):
     def test_user_can_edit_profile(self):
         """ User can edit profile with valid password combination"""
         data = {'password': 'testa', 'password_conf': 'testa', 'email':
-                'abb@yahoo.com', 'first_name': 'abbbey', 'last_name': 'kidna'}
+                'abb@yahoo.com', 'first_name': 'abbbey', 'last_name': 'kidna','username':'test'}
         url = reverse('profile')
         response = self.client.post(url, data=data)
         self.assertEqual(response.status_code, 302)
