@@ -2,14 +2,7 @@
 <div class="container">
     <div class="row text-center">
         <div class="col-sm-4">
-            <form class "form-control" action="" method="get">
-                <div class="input-group">
-                    <input type="text" name="q" class="form-control" placeholder="Search for...">
-                    <span class="input-group-btn">
-        <button class="btn btn-default" type="submit">Go!</button>
-      </span>
-                </div>
-            </form>
+            {% include 'partials/search-form.html' %}
             <!-- /input-group -->
         </div>
         <div class="col-sm-4">

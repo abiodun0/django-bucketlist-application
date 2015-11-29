@@ -6,14 +6,8 @@
     <div class="container">
         <div class="row">
             <div class="col-sm-4 col-sm-offset-4">
-                <form class "form-control" action="" method="get">
-                    <div class="input-group">
-                        <input type="text" name="q" class="form-control" placeholder="Search for items">
-                        <span class="input-group-btn">
-                        <button class="btn btn-default" type="submit">Go!</button>
-                        </span>
-                    </div>
-                </form>
+                {% include 'partials/search-form.html' %}
+
             </div>
         </div>
         {% if search|length > 0 %}
