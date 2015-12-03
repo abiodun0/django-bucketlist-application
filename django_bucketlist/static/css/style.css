@@ -48,6 +48,9 @@ a.link-bucket{
     padding:20px;
     height:250px;
 }
+.new-bucket-item{
+  margin-bottom:20px;
+}
 .item-done{
     position: absolute;
     bottom: 0;
