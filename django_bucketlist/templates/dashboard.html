@@ -115,7 +115,7 @@
                 <p class="text-info text-center"> {% if request.user.bucketlists.all|length > 0 %} No items matches your search criteria {% else %} You have no bucketlist add one now</p>{% endif %}
         {% endfor %}
     </div>
-    {% if bucketlists|length > 6 %}
+    {% if request.user.bucketlists.all|length > 6 %}
     <nav>
         <ul class="pager">
             <li class="previous {% if not bucketlists.has_previous %} disabled {% endif %}">

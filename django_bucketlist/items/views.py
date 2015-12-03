@@ -32,7 +32,7 @@ class ItemDoneView(LoginRequiredMixin, View):
         item = Item.objects.filter(id=item_id).first()
         if item.done is True:
             item.done = False
-            messages.success(request, item.name + ' Marked as not done')
+            messages.error(request, item.name + ' Marked as not done')
 
         else:
             item.done = True
