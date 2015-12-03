@@ -50,7 +50,7 @@ class RegisterForm(ModelForm):
                 'autocomplete': 'off',
                 'class': 'form-control'}),
             'email': TextInput(attrs={
-                'placeholder': 'Email Add',
+                'placeholder': 'Email Address',
                 'autocomplete': 'off',
                 'class': 'form-control'
             }),
