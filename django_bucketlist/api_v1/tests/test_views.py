@@ -4,7 +4,7 @@ from django.test.utils import setup_test_environment
 setup_test_environment()
 from rest_framework.test import APITestCase, APIClient
 from django.contrib.auth.models import User
-from django.core.urlresolvers import resolve, reverse
+from django.core.urlresolvers import reverse
 
 from bucketlists.models import BucketList
 from items.models import Item

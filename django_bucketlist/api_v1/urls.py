@@ -1,6 +1,8 @@
+"""Controls the Routes for the API"""
+
 from django.conf.urls import url,include
 from rest_framework.authtoken import views as restviews
-from apiv1 import views
+from api_v1 import views
 
 urlpatterns = [
     url(r'^auth/login/', restviews.obtain_auth_token, name="api_login"),

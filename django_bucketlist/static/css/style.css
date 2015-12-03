@@ -40,6 +40,10 @@ a.link-bucket{
     color:inherit !important;
 
 }
+
+.new-bucket-link{
+  margin-bottom:20px;
+}
 .bucket-item{
     padding:20px;
     height:500px;
@@ -84,7 +88,7 @@ ul.list-group li:hover button, .single-item:hover button{
     margin-left:5px;
     color:#fff;
     font-weight:500;
-    visibility:hidden;
+  
 }
 .bucket-item .panel-body p em{
     color:gray;
@@ -102,6 +106,20 @@ ul.list-group li:hover button, .single-item:hover button{
 }
 .radio-inline{
     padding:10px;
+}
+
+
+input[type=checkbox]:checked ~ div label{
+    background: url(http://ramyasspace.files.wordpress.com/2011/06/tick.jpg);
+    background-size: 100%;
+}
+
+.done {
+    width:30px;
+    height:30px;
+    position: absolute;
+    top: 25%;
+    right: 20px;
 }
 
 @media (max-width: 767px) {

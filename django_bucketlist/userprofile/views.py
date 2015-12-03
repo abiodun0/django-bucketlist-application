@@ -3,12 +3,12 @@
 from django.contrib.auth.decorators import login_required
 
 from django.utils.decorators import method_decorator
-from django.views.generic import View, TemplateView
+from django.views.generic import TemplateView
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login
 from django.contrib import messages
 
-from django.template import RequestContext, loader
+from django.template import RequestContext
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 from userprofile.forms import RegisterForm, LoginForm, ProfileForm
@@ -19,6 +19,8 @@ from items.forms import ItemForm
 
 
 def url_redirect(request):
+    """Utility function for url redirect
+    """
     url = request.META.get('HTTP_REFERER') if request.META.get(
         'HTTP_REFERER') is not None else '/dashboard'
     return redirect(
@@ -30,7 +32,8 @@ def url_redirect(request):
 class IndexView(TemplateView):
 
     """The view for the home page url
-    redirects to dashboard if user is already logged in"""
+    redirects to dashboard if user is already logged in
+    """
 
     def dispatch(self, request, *args, **kwargs):
         if request.user.is_authenticated():
@@ -52,7 +55,8 @@ class LoginRequiredMixin(object):
 
 class IndexBaseView(IndexView):
 
-    """view for the login and signup page"""
+    """view for the login and signup page
+    """
     template_name = 'index.html'
 
     def get_context_data(self, **kwargs):
@@ -89,7 +93,8 @@ class IndexBaseView(IndexView):
 
 class SignUpView(IndexBaseView):
 
-    """signup page view"""
+    """signup page view
+    """
     template_name = 'signup.html'
 
     def get_context_data(self, **kwargs):
@@ -120,7 +125,8 @@ class SignUpView(IndexBaseView):
 
 class DashboardView(LoginRequiredMixin, TemplateView):
 
-    """Dashboard view for a particular user"""
+    """Dashboard view for a particular user
+    """
     template_name = 'dashboard.html'
 
     def get(self, request, **kwargs):
@@ -148,7 +154,8 @@ class DashboardView(LoginRequiredMixin, TemplateView):
 
 class ProfileView(LoginRequiredMixin, TemplateView):
 
-    """profile editing view"""
+    """profile editing view
+    """
     template_name = 'profile.html'
     form_class = ProfileForm
 

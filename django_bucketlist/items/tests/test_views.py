@@ -34,7 +34,8 @@ class BucketListViewTest(TestCase):
         Item.objects.all().delete()
 
     def test_item_can_be_done_or_undone(self):
-        """ Test if item can be done or marked undone """
+        """ Test if item can be done or marked undone 
+        """
         response = self.client.post(
             reverse('item_done', kwargs={'id': self.item.id}))
         response2 = self.client.post(
@@ -43,14 +44,16 @@ class BucketListViewTest(TestCase):
         self.assertEqual(response2.status_code, 302)
 
     def test_item_can_be_deleted(self):
-        """ Items can be deleted """
+        """ Items can be deleted 
+        """
         response = self.client.post(
             reverse('item_delete', kwargs={'id': self.item.id}))
 
         self.assertEqual(response.status_code, 302)
 
     def test_item_can_be_edited(self):
-        """ Test item description and name can be edited """
+        """ Test item description and name can be edited 
+        """
         response = self.client.post(
             reverse('item_edit', kwargs={'id': self.item.id}), {'name': 'edited item', 'description': 'edited description'})
 

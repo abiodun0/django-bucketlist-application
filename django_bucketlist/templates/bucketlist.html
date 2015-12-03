@@ -37,12 +37,14 @@
                 </div>
                 <div class="bucket-item-content">
                     <div class="panel-body single-item">
-                        {% if not item.done %} {{item.description}} {% else %}
-                        <del> {{item.description}}</del> {% endif %}
-                        <form method="post" action="{% url 'item_done' id=item.id %}">
-                            {% csrf_token %}
-                            <button type="submit" class="btn btn-sm btn-warning item-done">{% if not item.done %} Done? {% else %} Not Done yet {% endif %} </button>
-                        </form>
+                        {{item.description}} 
+                        
+                                <form method="post" action="{% url 'item_done' id=item.id %}">
+                                 
+                                    {% csrf_token %}
+                                    <input type="checkbox" id="checkbox" class="pull-right done" {% if item.done %}checked {% endif %}/>
+                                    <!-- <button type="submit" class="btn btn-sm btn-warning item-done"> Not Done Yet ? </button> -->
+                                </form>
                     </div>
                 </div>
                 <form class="form-horizontal edit-form" action="{% url 'item_edit' id=item.id %}" method="post">
@@ -57,8 +59,8 @@
                             <textarea class="form-control" rows="2" name="description">{{item.description}}</textarea>
                         </div>
                     </div>
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-primary">Submit</button>
+                    <button type="button" class="btn btn-default edit-bucketitem">Close</button>
+                    <button type="submit" class="btn btn-primary">Edit</button>
                 </form>
             </div>
         </div>
@@ -66,7 +68,7 @@
         <p class="text-info text-center"> {% if bucketlist.items.all|length > 0 %} No items matches your search criteria {% else %} No Items in this collection</p>{% endif %}
         {% endfor %}
     </div>
-    {% if items|length > 0 %}
+    {% if items|length > 6 %}
     <nav>
         <ul class="pager">
             <li class="previous {% if not items.has_previous %} disabled {% endif %}">

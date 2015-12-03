@@ -16,7 +16,7 @@ Including another URLconf
 from django.conf.urls import include, url
 from django.contrib import admin
 import bucketlists.urls
-import apiv1.urls
+import api_v1.urls
 import items.urls
 import userprofile.urls
 
@@ -25,5 +25,5 @@ urlpatterns = [
     url(r'^item/', include(items.urls)),
     url(r'^admin/', include(admin.site.urls)),
     url(r'^bucketlist/', include(bucketlists.urls)),
-    url(r'^api/v1/', include(apiv1.urls)),
+    url(r'^api/v1/', include(api_v1.urls)),
 ]

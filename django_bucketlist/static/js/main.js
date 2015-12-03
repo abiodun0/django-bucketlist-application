@@ -1,8 +1,19 @@
 $(document).ready(function() {
+    alertTimeout = setTimeout(function(){
+        $(".alert").remove();
+    },3000);
+    if($.isEmptyObject($.find('.alert'))) clearTimeout(alertTimeout);
     $('.edit-bucketitem').click(function(e) {
         $(this).closest('.bucket-item').find('form').toggle();
         $(this).closest('.bucket-item').find('.bucket-item-content').toggle();
     })
+    $(".new-bucket-link").hover(function(e){
+        $(this).tooltip('show');
+    });
+     $('.done').on('change',function(){
+        console.log("check");
+        $(this).closest("form").trigger("submit");
+    });
     $('.bucket-link').hover(function(e) {
 
         $(this).tooltip('show');

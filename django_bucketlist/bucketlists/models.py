@@ -1,3 +1,4 @@
+"""This controls the model of the bucketlist"""
 from django.db import models
 from django.contrib import auth
 

@@ -1,3 +1,4 @@
+"""This controls the model for the Item App"""
 from django.db import models
 from bucketlists.models import BucketList
 

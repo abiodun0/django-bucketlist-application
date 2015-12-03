@@ -18,7 +18,8 @@ from userprofile.views import DashboardView, url_redirect,LoginRequiredMixin
 
 class BucketListView(DashboardView):
 
-    """Creates a new bucketlist"""
+    """Creates a new bucketlist
+    """
 
     def post(self, request, **kwargs):
         form = BucketListForm(request.POST)
@@ -31,7 +32,8 @@ class BucketListView(DashboardView):
 
 class BucketListEditView(LoginRequiredMixin,TemplateView):
 
-    """Edits a particular bucketlist"""
+    """Edits a particular bucketlist
+    """
     template_name = 'bucketlist.html'
 
     def get(self, request, **kwargs):
@@ -69,7 +71,8 @@ class BucketListEditView(LoginRequiredMixin,TemplateView):
 
 class BucketListAddItemView(LoginRequiredMixin, TemplateView):
 
-    """Adds an item to a bucketlist collection"""
+    """Adds an item to a bucketlist collection
+    """
 
     def post(self, request, **kwargs):
         bucketlist_id = kwargs['id']
@@ -85,7 +88,8 @@ class BucketListAddItemView(LoginRequiredMixin, TemplateView):
 
 class BucketListDeleteView(LoginRequiredMixin, TemplateView):
 
-    """ Deletes a bucketlist item """
+    """ Deletes a bucketlist item 
+    """
 
     def post(self, request, **kwargs):
         bucketlist_id = kwargs['id']

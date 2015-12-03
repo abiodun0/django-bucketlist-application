@@ -1,19 +1,18 @@
 """This handles the Bucketlist Item Actions"""
 
-from django.shortcuts import redirect
-from django.template import RequestContext
 from django.contrib import messages
 from django.views.generic import View
 
 from .models import Item
-from userprofile.views import url_redirect,LoginRequiredMixin
+from userprofile.views import url_redirect, LoginRequiredMixin
 
 # Create your views here.
 
 
-class ItemDeleteView(LoginRequiredMixin,View):
+class ItemDeleteView(LoginRequiredMixin, View):
 
-    """This deletes the item"""
+    """This deletes the item
+    """
 
     def post(self, request, **kwargs):
         item_id = kwargs['id']
@@ -23,9 +22,10 @@ class ItemDeleteView(LoginRequiredMixin,View):
         return url_redirect(request)
 
 
-class ItemDoneView(LoginRequiredMixin,View):
+class ItemDoneView(LoginRequiredMixin, View):
 
-    """marks a bucketlist item as done or not done"""
+    """marks a bucketlist item as done or not done
+    """
 
     def post(self, request, **kwargs):
         item_id = kwargs['id']
@@ -42,9 +42,10 @@ class ItemDoneView(LoginRequiredMixin,View):
         return url_redirect(request)
 
 
-class ItemEditView(LoginRequiredMixin,View):
+class ItemEditView(LoginRequiredMixin, View):
 
-    """Edits the description and name of an item"""
+    """Edits the description and name of an item
+    """
 
     def post(self, request, **kwargs):
         item_id = kwargs['id']

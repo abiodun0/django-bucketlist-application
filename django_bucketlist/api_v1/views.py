@@ -1,31 +1,29 @@
-from django.http import Http404
 from django.shortcuts import get_object_or_404
 from django.contrib.auth.models import User
 
 from rest_framework.views import APIView
 from rest_framework.response import Response
-from rest_framework.renderers import JSONRenderer
-from rest_framework.parsers import JSONParser
-from rest_framework.generics import GenericAPIView
-from rest_framework.permissions import IsAuthenticated, IsAuthenticatedOrReadOnly
+from rest_framework.permissions import IsAuthenticated
 from rest_framework import status
 
 from bucketlists.models import BucketList
 from items.models import Item
-from apiv1.serializers import UserSerializer, BucketListSerializer, ItemSerializer
+from api_v1.serializers import UserSerializer, BucketListSerializer, ItemSerializer
 
 
 class ProfileView(APIView):
     permission_classes = (IsAuthenticated,)
 
     def get(self, request):
-        """ retrieves User Information"""
+        """ retrieves User Information
+        """
         user = request.user
         serialized = UserSerializer(user)
         return Response(serialized.data)
 
     def post(self, request):
-        """ Creats A new User"""
+        """ Creats A new User
+        """
         user = UserSerializer()
         response_user = user.create(data=request.data)
         serialzed_response = UserSerializer(response_user)
@@ -34,7 +32,8 @@ class ProfileView(APIView):
 
 class BucketLists(APIView):
 
-    """The bucketlist resource"""
+    """The bucketlist resource
+    """
     permission_classes = (IsAuthenticated,)
 
     def get(self, request):
@@ -44,7 +43,8 @@ class BucketLists(APIView):
         return Response(serialized.data)
 
     def post(self, request, format=None):
-        """ Creates a new bucketlist"""
+        """ Creates a new bucketlist
+        """
 
         serializer = BucketListSerializer(data=request.data)
 
@@ -56,7 +56,8 @@ class BucketLists(APIView):
 
 class BucketListView(APIView):
 
-    """ Bucketlist resource"""
+    """ Bucketlist resource
+    """
     permission_classes = (IsAuthenticated,)
 
     def get(self, request, **kwargs):
@@ -68,7 +69,8 @@ class BucketListView(APIView):
         return Response(serialized.data)
 
     def put(self, request, format=None, **kwargs):
-        """ Edits a particular bucketlist"""
+        """ Edits a particular bucketlist
+        """
         bucketlist_id = kwargs['id']
         bucketlist = get_object_or_404(BucketList, id=bucketlist_id)
         serializer = BucketListSerializer(bucketlist, data=request.data)
@@ -78,7 +80,8 @@ class BucketListView(APIView):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
     def delete(self, request, **kwargs):
-        """ Deletes a bucketlist"""
+        """ Deletes a bucketlist
+        """
         bucketlist_id = kwargs['id']
         bucketlist = get_object_or_404(BucketList, id=bucketlist_id)
         bucketlist.delete()
@@ -87,7 +90,8 @@ class BucketListView(APIView):
 
 class BucketListItemsView(APIView):
 
-    """ Creates a new Bucketlist Item"""
+    """ Creates a new Bucketlist Item
+    """
     permission_classes = (IsAuthenticated,)
 
     def post(self, request, format=None, **kwargs):
@@ -104,7 +108,8 @@ class BucketListItemsView(APIView):
 
 class BucketListItemView(APIView):
 
-    """ Bucketlist Item resource"""
+    """ Bucketlist Item resource
+    """
     permission_classes = (IsAuthenticated,)
 
     def put(self, request, format=None, **kwargs):
@@ -119,7 +124,8 @@ class BucketListItemView(APIView):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
     def delete(self, request, **kwargs):
-        """ Deletes a bucketlist item"""
+        """ Deletes a bucketlist item
+        """
         item_id = kwargs['item_id']
         item = get_object_or_404(Item, id=item_id)
         item.delete()

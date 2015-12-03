@@ -23,7 +23,7 @@ PROJECT_ROOT = os.path.dirname(BASE_DIR)
 # See https://docs.djangoproject.com/en/1.8/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = "m(%x1m*2!qs9(l(s&n0nft&$9%3dbpcrc_v#*3cxd7#thj0zbb"
+SECRET_KEY = os.getenv('SECRET_KEY')
 
 STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.FileSystemFinder',
@@ -54,7 +54,7 @@ INSTALLED_APPS = (
     'rest_framework',
     'rest_framework.authtoken',
     'rest_framework_swagger',
-    'apiv1',
+    'api_v1',
     'djangobower',
     'bucketlists',
     'userprofile',
